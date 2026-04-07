@@ -33,7 +33,7 @@ const projects = [
     cat: ['Visual', 'Web', 'Video'],
     desc: 'Evenement littéraire',
     media: [
-      { type: 'image', src: '/portfolio/48h-livre.jpg' },
+      { type: 'video', src: 'https://youtube.com/shorts/kQXIw2dXzfg' },
     ],
   },
   {
@@ -43,7 +43,7 @@ const projects = [
     desc: "Système de gestion d'une bibliothèque",
     link: 'https://uiya-biblio.vercel.app',
     media: [
-      { type: 'image', src: '/portfolio/biblio-uiya.jpg' },
+      { },
     ],
   },
   {
@@ -52,7 +52,7 @@ const projects = [
     cat: ['Visual', 'Video'],
     desc: "Activité organisée par les bénévoles de la bibliothèque de l'Université Internationale de Yamoussoukro",
     media: [
-      { type: 'image', src: '/portfolio/ateliers-lecture.jpg' },
+      { },
     ],
   },
 ]
