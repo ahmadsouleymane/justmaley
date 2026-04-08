@@ -35,13 +35,12 @@
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-* {
-  cursor: none !important;
-}
-
-@media (max-width: 768px) {
+@media (min-width: 769px) {
   * {
-    cursor: auto !important;
+    cursor: none;
+  }
+  a, button, [data-hover], input, textarea, select {
+    cursor: none;
   }
 }
 

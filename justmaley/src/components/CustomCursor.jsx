@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 
 export default function CustomCursor() {
   const [pos, setPos] = useState({ x: -100, y: -100 })
   const [hovering, setHovering] = useState(false)
   const [visible, setVisible] = useState(false)
+  const listenersRef = useRef(new Set())
 
   useEffect(() => {
     if (window.innerWidth < 768) return
@@ -14,33 +15,46 @@ export default function CustomCursor() {
       if (!visible) setVisible(true)
     }
 
+    const hide = () => {
+      setVisible(false)
+      setHovering(false)
+    }
+
+    const show = () => setVisible(true)
+
     const over = () => setHovering(true)
     const out = () => setHovering(false)
 
-    window.addEventListener('mousemove', move)
-
-    const interactives = document.querySelectorAll('a, button, [data-hover]')
-    interactives.forEach((el) => {
+    const attachListeners = (el) => {
+      if (listenersRef.current.has(el)) return
+      listenersRef.current.add(el)
       el.addEventListener('mouseenter', over)
       el.addEventListener('mouseleave', out)
-    })
+    }
 
-    const observer = new MutationObserver(() => {
-      const els = document.querySelectorAll('a, button, [data-hover]')
-      els.forEach((el) => {
-        el.addEventListener('mouseenter', over)
-        el.addEventListener('mouseleave', out)
-      })
-    })
+    const bindAll = () => {
+      document.querySelectorAll('a, button, [data-hover]').forEach(attachListeners)
+    }
+
+    window.addEventListener('mousemove', move)
+    document.addEventListener('mouseleave', hide)
+    document.addEventListener('mouseenter', show)
+
+    bindAll()
+
+    const observer = new MutationObserver(bindAll)
     observer.observe(document.body, { childList: true, subtree: true })
 
     return () => {
       window.removeEventListener('mousemove', move)
+      document.removeEventListener('mouseleave', hide)
+      document.removeEventListener('mouseenter', show)
       observer.disconnect()
-      interactives.forEach((el) => {
+      listenersRef.current.forEach((el) => {
         el.removeEventListener('mouseenter', over)
         el.removeEventListener('mouseleave', out)
       })
+      listenersRef.current.clear()
     }
   }, [visible])
 

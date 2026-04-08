@@ -90,12 +90,12 @@ export default function Hero() {
 
       <div className="relative z-10 flex flex-col items-center text-center" style={{ maxWidth: '900px' }}>
         {/* Promesse — ligne 1 */}
-        <div className="overflow-hidden">
+        <div className="overflow-hidden pb-2">
           <motion.h1
-            initial={{ y: '100%' }}
+            initial={{ y: '110%' }}
             animate={{ y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-offwhite leading-[0.95] tracking-tight"
+            className="text-offwhite leading-[1] tracking-tight"
             style={{ fontSize: 'clamp(2.8rem, 8vw, 6.5rem)', fontFamily: 'var(--font-cool-cond)' }}
           >
             Je transforme vos idées
@@ -103,12 +103,12 @@ export default function Hero() {
         </div>
 
         {/* Promesse — ligne 2 */}
-        <div className="overflow-hidden">
+        <div className="overflow-hidden pb-2">
           <motion.h1
-            initial={{ y: '100%' }}
+            initial={{ y: '110%' }}
             animate={{ y: 0 }}
             transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="leading-[0.95] tracking-tight"
+            className="leading-[1] tracking-tight"
             style={{ fontSize: 'clamp(2.8rem, 8vw, 6.5rem)', fontFamily: 'var(--font-cool-cond)', color: '#FC7A1E' }}
           >
             en expériences digitales.
@@ -138,16 +138,23 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="hero-scroll absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-        <span className="text-offwhite/30 text-xs tracking-[0.3em] uppercase" style={{ fontFamily: 'system-ui, sans-serif' }}>Scroll</span>
+      <a
+        href="#about"
+        onClick={(e) => {
+          e.preventDefault()
+          document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
+        }}
+        className="hero-scroll absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 group"
+      >
+        <span className="text-offwhite/30 group-hover:text-orange text-xs tracking-[0.3em] uppercase transition-colors" style={{ fontFamily: 'system-ui, sans-serif' }}>Scroll</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
-          className="w-5 h-8 border-2 border-offwhite/20 rounded-full flex items-start justify-center p-1"
+          className="w-5 h-8 border-2 border-offwhite/20 group-hover:border-orange/50 rounded-full flex items-start justify-center p-1 transition-colors"
         >
           <div className="w-1 h-2 bg-orange rounded-full" />
         </motion.div>
-      </div>
+      </a>
     </section>
   )
 }

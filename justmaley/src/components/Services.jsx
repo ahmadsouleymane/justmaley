@@ -109,12 +109,6 @@ export default function Services() {
                 <p className="text-offwhite/60 text-base leading-relaxed">
                   {service.desc}
                 </p>
-                <div className="mt-6 flex items-center gap-2 text-orange opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  <span className="text-sm tracking-wider uppercase">En savoir plus</span>
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M3 8h10M9 4l4 4-4 4" />
-                  </svg>
-                </div>
               </div>
             </motion.div>
           ))}
