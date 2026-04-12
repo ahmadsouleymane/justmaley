@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import Loader from './components/Loader'
 import CustomCursor from './components/CustomCursor'
 import Navbar from './components/Navbar'
@@ -35,6 +36,7 @@ function App() {
         <Contact />
       </main>
       <Footer />
+      <Analytics />
     </>
   )
 }
