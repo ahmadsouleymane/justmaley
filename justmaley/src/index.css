@@ -42,6 +42,12 @@
   a, button, [data-hover], input, textarea, select {
     cursor: none;
   }
+  [data-lightbox], [data-lightbox] * {
+    cursor: default !important;
+  }
+  [data-lightbox] a, [data-lightbox] button {
+    cursor: pointer !important;
+  }
 }
 
 html {

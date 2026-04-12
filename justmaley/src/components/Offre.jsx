@@ -563,30 +563,7 @@ export default function Offre() {
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* Payment conditions - subtle strip */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-12 flex items-center justify-center gap-3 md:gap-5 flex-wrap text-offwhite/25 text-xs tracking-[0.15em] uppercase"
-        >
-          <span className="flex items-center gap-1.5">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-              <path d="M7 11V7a5 5 0 0110 0v4" />
-            </svg>
-            50% à la commande
-          </span>
-          <span style={{ color: 'rgba(252,122,30,0.3)' }}>·</span>
-          <span className="flex items-center gap-1.5">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-            50% à la livraison
-          </span>
-        </motion.div>
+        
       </div>
     </section>
   )

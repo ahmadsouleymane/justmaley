@@ -74,7 +74,7 @@ export default function Contact() {
                 <rect x="2" y="4" width="16" height="12" rx="2" />
                 <path d="M2 6l8 5 8-5" />
               </svg>
-              justmaleyagency@gmail.com
+              contact@justmaley.tech
             </p>
           </motion.div>
         </div>

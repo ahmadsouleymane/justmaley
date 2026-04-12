@@ -16,7 +16,7 @@ const projects = [
     link: 'https://misterall.tech',
     tech: ['React', 'Node.js', 'MongoDB'],
     media: [
-      {type: "image", src: "./public/misterall.png"},
+      {type: "image", src: "/misterall.png"},
     ],
   },
   {
@@ -26,7 +26,7 @@ const projects = [
     desc: 'Vidéo promotionnelle pour le club santé et environnement de l\'Université Internationale de Yamoussoukro. Captation, montage et post-production.',
     tech: ['Premiere Pro', 'After Effects'],
     media: [
-      { type: 'image', src: './public/club.png' },
+      { type: 'image', src: '/club.png' },
       { type: 'video', src: 'https://youtube.com/shorts/OwTtf8diUOo' },
     ],
   },
@@ -38,7 +38,7 @@ const projects = [
     tech: ['Figma', 'React', 'Premiere Pro'],
     link: 'https://48h-uiya.vercel.app',
     media: [
-      { type: 'image', src: './public/48h.png' },
+      { type: 'image', src: '/48h.png' },
       { type: 'video', src: 'https://youtube.com/shorts/kQXIw2dXzfg' },
     ],
   },
@@ -50,7 +50,7 @@ const projects = [
     link: 'https://uiya-biblio.vercel.app',
     tech: ['React', 'Vercel', 'Firebase'],
     media: [
-      { type: 'image', src: './public/biblio.png' },
+      { type: 'image', src: '/biblio.png' },
     ],
   },
   {
@@ -60,7 +60,7 @@ const projects = [
     desc: 'Couverture visuelle et vidéo d\'une activité organisée par les bénévoles de la bibliothèque de l\'Université Internationale de Yamoussoukro. Création d\'affiches, stories et montage vidéo.',
     tech: ['Photoshop', 'Premiere Pro'],
     media: [
-      { type: 'image', src: './public/atelier.png' },
+      { type: 'image', src: '/atelier.png' },
       { type: 'video', src: 'https://youtube.com/shorts/Hze_XTWMFyc' },
     ],
   },
@@ -126,6 +126,7 @@ function Lightbox({ project, onClose, allProjects, onNavigate }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
+      data-lightbox
       className="fixed inset-0 z-[9999] flex items-center justify-center overflow-y-auto"
       style={{ backgroundColor: 'rgba(10,10,10,0.97)', backdropFilter: 'blur(12px)' }}
       onClick={onClose}
