@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import Loader from './components/Loader'
-import CustomCursor from './components/CustomCursor'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import About from './components/About'
+import Probleme from './components/Probleme'
 import Services from './components/Services'
+import Automatisation from './components/Automatisation'
+import Secteurs from './components/Secteurs'
+import Processus from './components/Processus'
 import Portfolio from './components/Portfolio'
 import Offre from './components/Offre'
-import Processus from './components/Processus'
+import FAQ from './components/FAQ'
+import About from './components/About'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 
@@ -24,15 +27,18 @@ function App() {
 
   return (
     <>
-      <CustomCursor />
       <Navbar />
       <main>
         <Hero />
-        <About />
+        <Probleme />
         <Services />
+        <Automatisation />
+        <Secteurs />
+        <Processus />
         <Portfolio />
         <Offre />
-        <Processus />
+        <FAQ />
+        <About />
         <Contact />
       </main>
       <Footer />

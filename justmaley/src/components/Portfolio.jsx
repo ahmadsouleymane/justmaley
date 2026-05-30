@@ -10,63 +10,40 @@ import { motion, AnimatePresence } from 'framer-motion'
 const projects = [
   {
     id: 1,
-    title: 'MisterAll',
-    cat: ['Web'],
-    desc: 'Plateforme de revision pour élèves et étudiants. Application web complète permettant aux apprenants de réviser leurs cours, faire des exercices et suivre leur progression.',
-    link: 'https://misterall.tech',
-    tech: ['React', 'Node.js', 'MongoDB'],
-    media: [
-      {type: "image", src: "/misterall.png"},
-    ],
-  },
-  {
-    id: 2,
-    title: 'Club Santé et Environnement (UIYA)',
-    cat: ['Video'],
-    desc: 'Vidéo promotionnelle pour le club santé et environnement de l\'Université Internationale de Yamoussoukro. Captation, montage et post-production.',
-    tech: ['Premiere Pro', 'After Effects'],
-    media: [
-      { type: 'image', src: '/club.png' },
-      { type: 'video', src: 'https://youtube.com/shorts/OwTtf8diUOo' },
-    ],
-  },
-  {
-    id: 3,
-    title: '48h du livre et des arts associés',
-    cat: ['Visual', 'Web', 'Video'],
-    desc: 'Identité visuelle complète, site web et vidéo promotionnelle pour cet événement littéraire. Un projet multi-support alliant design graphique et développement web.',
-    tech: ['Figma', 'React', 'Premiere Pro'],
-    link: 'https://48h-uiya.vercel.app',
-    media: [
-      { type: 'image', src: '/48h.png' },
-      { type: 'video', src: 'https://youtube.com/shorts/kQXIw2dXzfg' },
-    ],
-  },
-  {
-    id: 4,
     title: 'Bibliothèque UIYA',
-    cat: ['Web'],
-    desc: 'Système de gestion d\'une bibliothèque universitaire. Gestion des emprunts, catalogue en ligne, espace membre et tableau de bord administrateur.',
+    cat: ['Gestion'],
+    desc: 'Système de gestion complet pour une bibliothèque universitaire : gestion des emprunts, catalogue en ligne, espace membre et tableau de bord administrateur.',
     link: 'https://uiya-biblio.vercel.app',
-    tech: ['React', 'Vercel', 'Firebase'],
+    tech: ['React', 'Firebase', 'Tableau de bord'],
     media: [
       { type: 'image', src: '/biblio.png' },
     ],
   },
   {
-    id: 5,
-    title: 'Atélier de lecture',
-    cat: ['Visual', 'Video'],
-    desc: 'Couverture visuelle et vidéo d\'une activité organisée par les bénévoles de la bibliothèque de l\'Université Internationale de Yamoussoukro. Création d\'affiches, stories et montage vidéo.',
-    tech: ['Photoshop', 'Premiere Pro'],
+    id: 2,
+    title: 'MisterAll',
+    cat: ['Gestion', 'Sites web'],
+    desc: 'Plateforme web complète pour élèves et étudiants : gestion des cours, des exercices et suivi de la progression des apprenants.',
+    link: 'https://misterall.tech',
+    tech: ['React', 'Node.js', 'MongoDB'],
     media: [
-      { type: 'image', src: '/atelier.png' },
-      { type: 'video', src: 'https://youtube.com/shorts/Hze_XTWMFyc' },
+      { type: 'image', src: '/misterall.png' },
+    ],
+  },
+  {
+    id: 3,
+    title: '48h du livre et des arts associés',
+    cat: ['Sites web'],
+    desc: 'Site web événementiel pour cet événement littéraire : présentation du programme, des intervenants et des inscriptions en ligne.',
+    tech: ['React', 'Design web'],
+    link: 'https://48h-livre.vercel.app',
+    media: [
+      { type: 'image', src: '/48h.png' },
     ],
   },
 ]
 
-const filters = ['Tous', 'Web', 'Visual', 'Video']
+const filters = ['Tous', 'Gestion', 'Sites web']
 
 function getYouTubeEmbedUrl(url) {
   if (!url) return null
@@ -401,7 +378,7 @@ export default function Portfolio() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-5xl md:text-7xl lg:text-8xl font-bold text-offwhite tracking-tight"
             >
-              Mes <span className="text-orange">réalisations.</span>
+              Nos <span className="text-orange">réalisations.</span>
             </motion.h2>
           </div>
 

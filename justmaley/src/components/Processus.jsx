@@ -3,8 +3,8 @@ import { motion } from 'framer-motion'
 const steps = [
   {
     num: '01',
-    title: 'Écoute',
-    desc: "J'échange avec vous sur vos objectifs, votre audience et votre vision. Gratuit et sans engagement.",
+    title: 'Audit',
+    desc: "Nous analysons comment vous gérez votre entreprise aujourd'hui et identifions ce qui vous fait perdre du temps. Gratuit et sans engagement.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" />
@@ -16,8 +16,8 @@ const steps = [
   },
   {
     num: '02',
-    title: 'Stratégie',
-    desc: "Je définis le plan d'action, les livrables et le calendrier. Rien ne démarre sans votre validation.",
+    title: 'Conception',
+    desc: "Nous définissons le cahier des charges, les fonctionnalités et la maquette de votre logiciel. Rien ne démarre sans votre validation.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <polygon points="12 2 2 7 12 12 22 7 12 2" />
@@ -28,8 +28,8 @@ const steps = [
   },
   {
     num: '03',
-    title: 'Création',
-    desc: "Je conçois, je développe, j'itère. Vous suivez chaque étape en temps réel.",
+    title: 'Développement',
+    desc: "Nous développons votre système de gestion et votre site web. Vous suivez chaque étape et testez à votre rythme.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 19l7-7 3 3-7 7-3-3z" />
@@ -41,8 +41,8 @@ const steps = [
   },
   {
     num: '04',
-    title: 'Livraison',
-    desc: 'Je livre, je forme, je vous accompagne. Votre projet est en ligne et performant.',
+    title: 'Déploiement',
+    desc: 'Nous déployons, formons vos équipes et vous accompagnons. Hébergement, maintenance et support inclus.',
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
@@ -73,7 +73,7 @@ export default function Processus() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-5xl md:text-7xl lg:text-8xl font-bold text-offwhite tracking-tight"
           >
-            Comment je <span className="text-orange">travaille.</span>
+            Comment ça <span className="text-orange">marche.</span>
           </motion.h2>
         </div>
 

@@ -2,8 +2,22 @@ import { motion } from 'framer-motion'
 
 const services = [
   {
-    title: 'Web',
-    desc: 'Je crée des sites vitrines, e-commerce et applications web sur-mesure qui convertissent et impressionnent.',
+    title: 'Logiciels de gestion',
+    desc: 'Nous concevons des systèmes sur mesure pour piloter votre entreprise : stocks, ventes, facturation, personnel et tableaux de bord — tout au même endroit.',
+    icon: (
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="4" y="8" width="40" height="32" rx="3" />
+        <line x1="4" y1="18" x2="44" y2="18" />
+        <line x1="14" y1="30" x2="14" y2="35" />
+        <line x1="22" y1="26" x2="22" y2="35" />
+        <line x1="30" y1="29" x2="30" y2="35" />
+        <line x1="38" y1="24" x2="38" y2="35" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Site web — Offert',
+    desc: 'Un site vitrine ou e-commerce professionnel, offert gratuitement avec votre système de gestion. Votre entreprise visible et crédible en ligne.',
     icon: (
       <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="4" y="8" width="40" height="28" rx="3" />
@@ -17,34 +31,24 @@ const services = [
     ),
   },
   {
-    title: 'Graphisme',
-    desc: "Je conçois des identités visuelles, logos, flyers et affiches. Un design qui marque les esprits.",
+    title: 'IA & Automatisation',
+    desc: "Nous intégrons l'intelligence artificielle et des agents IA sur mesure pour automatiser vos tâches répétitives. Votre entreprise travaille 24h/24, sans erreur.",
     icon: (
       <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M8 40l8-8 6 6-2 2z" />
-        <path d="M16 32L36 12a4 4 0 015.66 5.66L22 38" />
-        <circle cx="38" cy="10" r="2" fill="currentColor" stroke="none" />
+        <rect x="10" y="16" width="28" height="22" rx="4" />
+        <path d="M24 16V8" /><circle cx="24" cy="6" r="2" fill="currentColor" stroke="none" />
+        <line x1="19" y1="25" x2="19" y2="29" /><line x1="29" y1="25" x2="29" y2="29" />
+        <path d="M10 26H5M43 26h-5" />
       </svg>
     ),
   },
   {
-    title: 'Vidéo',
-    desc: 'Je réalise vos montages, motion design et contenus vidéo pour réseaux sociaux et publicité.',
+    title: 'Maintenance & support',
+    desc: 'Hébergement et nom de domaine offerts pendant 1 an, mises à jour, sauvegardes et support continu. Vous restez serein, nous gérons la technique.',
     icon: (
       <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="4" y="10" width="28" height="28" rx="3" />
-        <polygon points="36,18 44,13 44,35 36,30" fill="currentColor" stroke="none" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Contenu',
-    desc: 'Je gère votre stratégie de contenu, community management et rédaction web optimisée SEO.',
-    icon: (
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M8 10h32v28H20l-8 6v-6H8z" />
-        <line x1="16" y1="20" x2="32" y2="20" />
-        <line x1="16" y1="26" x2="28" y2="26" />
+        <path d="M24 4l16 6v10c0 10-7 16-16 18-9-2-16-8-16-18V10z" />
+        <polyline points="17 23 22 28 32 18" />
       </svg>
     ),
   },
@@ -62,7 +66,7 @@ export default function Services() {
             transition={{ duration: 0.5 }}
             className="text-orange text-sm tracking-[0.3em] uppercase mb-4 block"
           >
-            Mes Services
+            La solution
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 40 }}
@@ -71,8 +75,8 @@ export default function Services() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-5xl md:text-7xl lg:text-8xl font-bold text-offwhite tracking-tight"
           >
-            Ce que je fais<br />
-            <span className="text-orange">de mieux.</span>
+            Un outil unique<br />
+            <span className="text-orange">pour tout piloter.</span>
           </motion.h2>
         </div>
 

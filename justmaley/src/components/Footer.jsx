@@ -1,26 +1,44 @@
 import { motion } from 'framer-motion'
 
-const marqueeText = 'JUSTMALEY \u00B7 FREELANCE DIGITAL \u00B7 YAMOUSSOUKRO \u00B7 '
-
 export default function Footer() {
   return (
     <footer className="bg-green-dark border-t border-offwhite/10">
-      <div className="overflow-hidden py-8 md:py-12">
-        <div className="marquee-track">
-          {[...Array(4)].map((_, i) => (
-            <span
-              key={i}
-              className="font-bold text-offwhite/5 tracking-tighter whitespace-nowrap px-4"
-              style={{ fontSize: 'clamp(4rem, 10vw, 10rem)' }}
-              aria-hidden={i > 0}
-            >
-              {marqueeText}
-            </span>
-          ))}
-        </div>
+      {/* CTA final */}
+      <div className="mx-auto px-6 md:px-12 pt-20 md:pt-28 pb-12 text-center" style={{ maxWidth: '900px' }}>
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl md:text-6xl font-bold text-offwhite tracking-tight mb-6"
+        >
+          Prêt à <span className="text-orange">reprendre le contrôle</span> ?
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-offwhite/55 text-base md:text-lg mb-9 mx-auto"
+          style={{ maxWidth: '520px' }}
+        >
+          Un échange gratuit suffit pour savoir comment digitaliser votre entreprise. Sans engagement.
+        </motion.p>
+        <motion.a
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          href="https://api.whatsapp.com/message/EDN2SVYWK5WYF1?autoload=1&app_absent=0"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-3 bg-orange text-black-deep px-8 py-4 rounded-full font-bold tracking-wider hover:bg-orange-dark transition-colors"
+        >
+          Demander un devis gratuit
+        </motion.a>
       </div>
 
-      <div className="mx-auto px-6 md:px-12 py-8 md:py-12" style={{ maxWidth: '1280px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '2rem' }}>
+      <div className="mx-auto px-6 md:px-12 py-8 md:py-12 border-t border-offwhite/10" style={{ maxWidth: '1280px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '2rem' }}>
         <a href="#" aria-label="Justmaley - Accueil">
           <img src="/logo-wt.svg" alt="JUSTMALEY" className="h-8" />
         </a>

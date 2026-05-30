@@ -6,8 +6,7 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const text = `Nouveau message de ${formData.name} (${formData.email}): ${formData.message}`
-    window.open(`https://wa.me/2250160726314?text=${encodeURIComponent(text)}`, '_blank')
+    window.open('https://api.whatsapp.com/message/EDN2SVYWK5WYF1?autoload=1&app_absent=0', '_blank')
   }
 
   return (
@@ -38,7 +37,7 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-5xl md:text-7xl lg:text-8xl font-bold text-offwhite tracking-tight mb-8"
           >
-            Parlons de votre <span className="text-orange">projet.</span>
+            Digitalisons votre <span className="text-orange">entreprise.</span>
           </motion.h2>
 
           <motion.a
@@ -46,13 +45,13 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            href="https://wa.me/2250160726314"
+            href="https://api.whatsapp.com/message/EDN2SVYWK5WYF1?autoload=1&app_absent=0"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block text-3xl md:text-5xl font-bold text-orange hover:text-offwhite transition-colors duration-300 mb-8"
             data-hover
           >
-            +225 01 60 72 63 14
+            +225 05 66 11 07 23
           </motion.a>
 
           <motion.div
@@ -67,7 +66,7 @@ export default function Contact() {
                 <path d="M10 2C6.13 2 3 5.13 3 9c0 5.25 7 9 7 9s7-3.75 7-9c0-3.87-3.13-7-7-7z" />
                 <circle cx="10" cy="9" r="2.5" />
               </svg>
-              Yamoussoukro, Côte d&apos;Ivoire
+              Côte d&apos;Ivoire
             </p>
             <p className="flex items-center gap-3">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-orange shrink-0">
@@ -126,7 +125,7 @@ export default function Contact() {
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               className="w-full bg-transparent border-b-2 border-offwhite/20 text-offwhite text-lg py-3 px-0 focus:border-orange focus:outline-none transition-colors resize-none placeholder:text-offwhite/20"
-              placeholder="Décrivez votre projet..."
+              placeholder="Quels processus souhaitez-vous digitaliser ?"
             />
           </div>
           <motion.button

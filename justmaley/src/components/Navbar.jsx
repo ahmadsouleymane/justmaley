@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const links = [
-  { label: 'À propos', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Portfolio', href: '#portfolio' },
-  { label: 'Offres', href: '#offre' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Solution', href: '#services' },
+  { label: 'IA', href: '#ia' },
+  { label: 'Secteurs', href: '#secteurs' },
+  { label: 'Réalisations', href: '#portfolio' },
+  { label: 'Offre', href: '#offre' },
+  { label: 'FAQ', href: '#faq' },
 ]
 
 export default function Navbar() {
@@ -44,12 +45,12 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="https://wa.me/2250160726314"
+            href="https://api.whatsapp.com/message/EDN2SVYWK5WYF1?autoload=1&app_absent=0"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-orange text-black-deep px-5 py-2.5 rounded-full text-sm font-bold tracking-wider hover:bg-orange-dark transition-colors"
           >
-            WhatsApp
+            Devis gratuit
           </a>
         </div>
 
@@ -95,12 +96,12 @@ export default function Navbar() {
                 </a>
               ))}
               <a
-                href="https://wa.me/2250160726314"
+                href="https://api.whatsapp.com/message/EDN2SVYWK5WYF1?autoload=1&app_absent=0"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-orange text-black-deep px-8 py-3 rounded-full text-lg font-bold tracking-wider"
               >
-                WhatsApp
+                Devis gratuit
               </a>
             </div>
           </motion.div>

@@ -1,28 +1,5 @@
 @import "tailwindcss";
-
-@font-face {
-  font-family: 'Coolvetica';
-  src: url('/fonts/Coolvetica Rg.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Coolvetica';
-  src: url('/fonts/Coolvetica Hv Comp.otf') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Coolvetica Cond';
-  src: url('/fonts/Coolvetica Rg Cond.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 @theme {
   --color-orange: #FC7A1E;
@@ -30,24 +7,9 @@
   --color-green-dark: #172815;
   --color-offwhite: #E3E7D3;
   --color-black-deep: #0A0A0A;
-  --font-cool: 'Coolvetica', 'Impact', 'Arial Narrow', sans-serif;
-  --font-cool-cond: 'Coolvetica Cond', 'Coolvetica', 'Impact', sans-serif;
+  --font-cool: 'Sora', system-ui, sans-serif;
+  --font-cool-cond: 'Sora', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
-}
-
-@media (min-width: 769px) {
-  * {
-    cursor: none;
-  }
-  a, button, [data-hover], input, textarea, select {
-    cursor: none;
-  }
-  [data-lightbox], [data-lightbox] * {
-    cursor: default !important;
-  }
-  [data-lightbox] a, [data-lightbox] button {
-    cursor: pointer !important;
-  }
 }
 
 html {
