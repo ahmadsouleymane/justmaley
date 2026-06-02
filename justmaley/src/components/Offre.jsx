@@ -63,7 +63,7 @@ export default function Offre() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-offwhite/50 text-base md:text-lg mt-6 mx-auto"
+            className="text-offwhite/65 text-base md:text-lg mt-6 mx-auto"
             style={{ maxWidth: '560px' }}
           >
             Chaque entreprise est unique. Le prix dépend de vos besoins réels —
@@ -92,7 +92,7 @@ export default function Offre() {
             <span className="text-5xl md:text-6xl font-bold text-offwhite tracking-tight">
               Sur devis
             </span>
-            <span className="text-offwhite/40 text-base">gratuit & sans engagement</span>
+            <span className="text-offwhite/60 text-base">gratuit & sans engagement</span>
           </div>
 
           {/* Separator */}
@@ -153,7 +153,7 @@ export default function Offre() {
             <h3 className="text-2xl md:text-3xl font-bold text-offwhite tracking-tight mb-2">
               Satisfait ou remboursé sous 14 jours.
             </h3>
-            <p className="text-offwhite/50 text-sm md:text-base leading-relaxed">
+            <p className="text-offwhite/65 text-sm md:text-base leading-relaxed">
               Nous croyons en la qualité de notre travail. Si vous n'êtes pas satisfait dans les
               14 jours suivant la livraison, nous vous remboursons intégralement votre investissement.
               Sans risque pour votre entreprise.

@@ -59,7 +59,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="space-y-3 text-offwhite/50"
+            className="space-y-3 text-offwhite/65"
           >
             <p className="flex items-center gap-3">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-orange shrink-0">
@@ -87,7 +87,7 @@ export default function Contact() {
           className="space-y-6"
         >
           <div>
-            <label htmlFor="name" className="block text-offwhite/40 text-sm tracking-wider uppercase mb-2">
+            <label htmlFor="name" className="block text-offwhite/60 text-sm tracking-wider uppercase mb-2">
               Nom
             </label>
             <input
@@ -101,7 +101,7 @@ export default function Contact() {
             />
           </div>
           <div>
-            <label htmlFor="email" className="block text-offwhite/40 text-sm tracking-wider uppercase mb-2">
+            <label htmlFor="email" className="block text-offwhite/60 text-sm tracking-wider uppercase mb-2">
               Email
             </label>
             <input
@@ -115,7 +115,7 @@ export default function Contact() {
             />
           </div>
           <div>
-            <label htmlFor="message" className="block text-offwhite/40 text-sm tracking-wider uppercase mb-2">
+            <label htmlFor="message" className="block text-offwhite/60 text-sm tracking-wider uppercase mb-2">
               Message
             </label>
             <textarea

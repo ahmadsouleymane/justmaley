@@ -12,10 +12,13 @@ export default function Loader() {
         <motion.img
           src="/logo-wt.svg"
           alt=""
+          width="279"
+          height="48"
+          fetchPriority="high"
           initial={{ opacity: 0, scale: 0.6, filter: 'blur(10px)' }}
           animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          style={{ height: '48px' }}
+          style={{ height: '48px', width: 'auto' }}
         />
 
         {/* Barre de progression */}

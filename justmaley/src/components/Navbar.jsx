@@ -31,7 +31,7 @@ export default function Navbar() {
     >
       <div className="mx-auto px-6 md:px-12 flex items-center justify-between h-20" style={{ maxWidth: '1280px' }}>
         <a href="#" className="flex items-center gap-3" aria-label="Justmaley - Accueil">
-          <img src="/logo-wt.svg" alt="JUSTMALEY" className="h-5 md:h-6" />
+          <img src="/logo-wt.svg" alt="JUSTMALEY" width="140" height="24" className="h-5 md:h-6 w-auto" />
         </a>
 
         <div className="hidden md:flex items-center gap-10">

@@ -100,7 +100,7 @@ export default function Probleme() {
             >
               <div className="text-orange mb-5">{p.icon}</div>
               <h3 className="text-xl font-bold text-offwhite mb-2 tracking-tight">{p.title}</h3>
-              <p className="text-offwhite/50 text-sm leading-relaxed">{p.desc}</p>
+              <p className="text-offwhite/65 text-sm leading-relaxed">{p.desc}</p>
             </motion.div>
           ))}
         </div>

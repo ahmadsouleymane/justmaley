@@ -40,7 +40,7 @@ export default function Footer() {
 
       <div className="mx-auto px-6 md:px-12 py-8 md:py-12 border-t border-offwhite/10" style={{ maxWidth: '1280px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '2rem' }}>
         <a href="#" aria-label="Justmaley - Accueil">
-          <img src="/logo-wt.svg" alt="JUSTMALEY" className="h-8" />
+          <img src="/logo-wt.svg" alt="JUSTMALEY" width="186" height="32" className="h-8 w-auto" />
         </a>
 
         <div className="flex items-center gap-6">
@@ -91,7 +91,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               aria-label={social.label}
               whileHover={{ scale: 1.2 }}
-              className="text-offwhite/40 hover:text-orange transition-colors"
+              className="text-offwhite/60 hover:text-orange transition-colors"
             >
               {social.icon}
             </motion.a>

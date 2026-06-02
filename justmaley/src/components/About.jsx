@@ -37,8 +37,11 @@ export default function About() {
               src="/founder.jpg"
               alt="Ahmad Souleymane — fondateur de JustMaley"
               className="w-full h-full absolute inset-0"
+              width="800"
+              height="920"
               style={{ objectFit: 'cover', objectPosition: 'center 20%' }}
               loading="lazy"
+              decoding="async"
             />
             {/* Teinte orange subtile */}
             <div

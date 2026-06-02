@@ -166,7 +166,7 @@ export default function DashboardMockup() {
                 className="rounded-xl p-2.5"
                 style={{ backgroundColor: '#141414', border: '1px solid rgba(227,231,211,0.06)' }}
               >
-                <div className="text-offwhite/40 mb-1" style={{ fontSize: '9px' }}>{k.label}</div>
+                <div className="text-offwhite/60 mb-1" style={{ fontSize: '9px' }}>{k.label}</div>
                 <div className="flex items-end justify-between">
                   <div className="text-offwhite font-bold tracking-tight" style={{ fontSize: '16px' }}>{k.value}</div>
                   <span className="hidden @[460px]:block">

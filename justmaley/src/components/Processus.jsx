@@ -149,7 +149,7 @@ export default function Processus() {
                 <h3 className="text-2xl font-bold text-offwhite tracking-tight mb-3">
                   {step.title}
                 </h3>
-                <p className="text-offwhite/50 leading-relaxed" style={{ fontSize: '0.9rem' }}>
+                <p className="text-offwhite/65 leading-relaxed" style={{ fontSize: '0.9rem' }}>
                   {step.desc}
                 </p>
               </motion.div>
@@ -214,7 +214,7 @@ export default function Processus() {
                 <h3 className="text-2xl font-bold text-offwhite tracking-tight mb-2">
                   {step.title}
                 </h3>
-                <p className="text-offwhite/50 leading-relaxed" style={{ fontSize: '0.9rem' }}>
+                <p className="text-offwhite/65 leading-relaxed" style={{ fontSize: '0.9rem' }}>
                   {step.desc}
                 </p>
               </div>

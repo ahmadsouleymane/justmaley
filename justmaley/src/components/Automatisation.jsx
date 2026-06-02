@@ -140,7 +140,7 @@ export default function Automatisation() {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-offwhite mb-1 tracking-tight">{b.title}</h3>
-                  <p className="text-offwhite/50 text-sm leading-relaxed">{b.desc}</p>
+                  <p className="text-offwhite/65 text-sm leading-relaxed">{b.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -152,7 +152,7 @@ export default function Automatisation() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-offwhite/40 text-sm mt-8"
+          className="text-offwhite/60 text-sm mt-8"
         >
           Dites-nous ce qui vous fait perdre du temps —{' '}
           <a href="#contact" className="text-orange hover:underline">nous vous montrons comment l'automatiser</a>.

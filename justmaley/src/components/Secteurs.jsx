@@ -117,7 +117,7 @@ export default function Secteurs() {
               </div>
               <div>
                 <h3 className="text-lg font-bold text-offwhite mb-1.5 tracking-tight">{s.nom}</h3>
-                <p className="text-offwhite/50 text-sm leading-relaxed">{s.desc}</p>
+                <p className="text-offwhite/65 text-sm leading-relaxed">{s.desc}</p>
               </div>
             </motion.div>
           ))}
@@ -128,7 +128,7 @@ export default function Secteurs() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-center text-offwhite/40 text-sm mt-12"
+          className="text-center text-offwhite/60 text-sm mt-12"
         >
           Votre secteur n'est pas listé ?{' '}
           <a href="#contact" className="text-orange hover:underline">Parlons-en</a>{' '}
