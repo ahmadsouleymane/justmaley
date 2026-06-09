@@ -1,84 +1,54 @@
 import { motion } from 'framer-motion'
+import { useLocale } from '../i18n.jsx'
 
-const pains = [
-  {
-    title: 'Tout est dans des cahiers',
-    desc: 'Stocks, ventes, dettes clients... éparpillés sur des feuilles que personne ne retrouve quand il le faut.',
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
-        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Des fichiers Excel partout',
-    desc: 'Plusieurs versions, des formules cassées, et personne ne sait laquelle est la bonne. Vous perdez un temps fou.',
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="18" height="18" rx="2" />
-        <line x1="3" y1="9" x2="21" y2="9" />
-        <line x1="9" y1="21" x2="9" y2="9" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Aucune visibilité',
-    desc: 'Impossible de savoir en un coup d\'œil ce qui rentre, ce qui sort et où vous en êtes vraiment ce mois-ci.',
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" />
-        <circle cx="12" cy="12" r="3" />
-        <line x1="3" y1="3" x2="21" y2="21" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Vous dépendez de votre mémoire',
-    desc: 'Si vous n\'êtes pas là, l\'entreprise tourne au ralenti. Tout repose sur vous, et ça vous épuise.',
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="8" r="4" />
-        <path d="M4 21v-1a6 6 0 016-6h4a6 6 0 016 6v1" />
-      </svg>
-    ),
-  },
-]
+const ICONS = {
+  1: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z" /><circle cx="12" cy="12" r="3" />
+    </svg>
+  ),
+  2: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" />
+    </svg>
+  ),
+  3: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+    </svg>
+  ),
+  4: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
+    </svg>
+  ),
+}
 
-export default function Probleme() {
+export default function Avantages() {
+  const { t } = useLocale()
   return (
-    <section id="probleme" className="py-24 md:py-36 px-6 md:px-12 bg-green-dark">
-      <div className="mx-auto" style={{ maxWidth: '1280px' }}>
-        <div className="mb-16 md:mb-20" style={{ maxWidth: '720px' }}>
+    <section id="avantages" className="relative py-24 md:py-36 px-6 md:px-12 bg-green-dark overflow-hidden">
+      <div className="mx-auto" style={{ maxWidth: '1200px' }}>
+        <div className="text-center mb-14 md:mb-20 max-w-3xl mx-auto">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-orange text-sm tracking-[0.3em] uppercase mb-4 block"
+            className="text-orange text-[11px] tracking-[0.4em] uppercase font-semibold mb-5 block"
           >
-            Le problème
+            {t('why.tag')}
           </motion.span>
           <motion.h2
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-offwhite tracking-tight"
+            className="text-offwhite tracking-tight"
+            style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)', lineHeight: 1.02, fontWeight: 700 }}
           >
-            Gérer une entreprise à la main,<br />
-            <span className="text-orange">ça finit toujours par coûter cher.</span>
+            {t('why.title1')} <span className="text-orange">{t('why.title2')}</span>
           </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-offwhite/55 text-base md:text-lg mt-6 leading-relaxed"
-          >
-            Des erreurs de stock, des paiements oubliés, des heures perdues à chercher l'information.
-            Chaque jour sans outil adapté, c'est de l'argent qui s'évapore sans que vous le voyiez.
-          </motion.p>
         </div>
 
         <div
@@ -88,19 +58,20 @@ export default function Probleme() {
             gap: '1.25rem',
           }}
         >
-          {pains.map((p, i) => (
+          {[1, 2, 3, 4].map((i) => (
             <motion.div
-              key={p.title}
-              initial={{ opacity: 0, y: 40 }}
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="rounded-2xl p-7"
-              style={{ backgroundColor: 'rgba(10,10,10,0.35)', border: '1px solid rgba(227,231,211,0.08)' }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className="p-7 rounded-3xl bg-black-deep/40 border border-offwhite/10 hover:border-orange/40 transition-colors"
             >
-              <div className="text-orange mb-5">{p.icon}</div>
-              <h3 className="text-xl font-bold text-offwhite mb-2 tracking-tight">{p.title}</h3>
-              <p className="text-offwhite/65 text-sm leading-relaxed">{p.desc}</p>
+              <div className="inline-flex w-12 h-12 items-center justify-center rounded-2xl bg-orange/15 text-orange mb-5">
+                {ICONS[i]}
+              </div>
+              <h3 className="text-offwhite font-bold mb-2 text-lg">{t(`why.${i}.title`)}</h3>
+              <p className="text-offwhite/60 text-sm leading-relaxed">{t(`why.${i}.text`)}</p>
             </motion.div>
           ))}
         </div>

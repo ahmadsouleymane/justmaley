@@ -1,139 +1,85 @@
 import { motion } from 'framer-motion'
+import { useLocale } from '../i18n.jsx'
 
-const secteurs = [
-  {
-    nom: 'Commerce & distribution',
-    desc: 'Gestion de stock, points de vente, fournisseurs et marges en temps réel.',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 9l1-5h16l1 5" /><path d="M4 9v11a1 1 0 001 1h14a1 1 0 001-1V9" /><path d="M9 21v-6h6v6" />
-      </svg>
-    ),
-  },
-  {
-    nom: 'Restaurants & bars',
-    desc: 'Commandes, caisse, gestion des tables, des serveurs et des approvisionnements.',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 2v7a3 3 0 003 3v10" /><path d="M6 2v6" /><path d="M9 2v6" /><path d="M16 2a4 4 0 00-2 7.5V22" />
-      </svg>
-    ),
-  },
-  {
-    nom: 'Pharmacies & santé',
-    desc: 'Suivi des lots, dates de péremption, ordonnances et inventaire automatisé.',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 5v14M5 12h14" /><rect x="3" y="3" width="18" height="18" rx="3" />
-      </svg>
-    ),
-  },
-  {
-    nom: 'Import-export & logistique',
-    desc: 'Suivi des arrivages, douanes, clients, livraisons et facturation centralisée.',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="1" y="3" width="15" height="13" rx="1" /><path d="M16 8h4l3 3v5h-7z" /><circle cx="5.5" cy="18.5" r="2.5" /><circle cx="18.5" cy="18.5" r="2.5" />
-      </svg>
-    ),
-  },
-  {
-    nom: 'Services & BTP',
-    desc: 'Devis, factures, suivi de chantiers, planning des équipes et trésorerie.',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14.7 6.3a4 4 0 00-5.6 5.6L3 18v3h3l6.1-6.1a4 4 0 005.6-5.6l-2.5 2.5-2.5-2.5z" />
-      </svg>
-    ),
-  },
-  {
-    nom: 'Écoles & formations',
-    desc: 'Inscriptions, paiements, notes, présences et communication avec les parents.',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M22 10L12 5 2 10l10 5 10-5z" /><path d="M6 12v5c0 1 2.7 3 6 3s6-2 6-3v-5" />
-      </svg>
-    ),
-  },
+const GROUPS = [
+  { key: 'front', items: [{ name: 'React', icon: 'react' }] },
+  { key: 'back', items: [{ name: 'Node.js', icon: 'node' }, { name: 'Express', icon: 'express' }] },
+  { key: 'db', items: [{ name: 'MongoDB', icon: 'mongo' }, { name: 'PostgreSQL', icon: 'postgres' }, { name: 'Supabase', icon: 'supabase' }] },
+  { key: 'ai', items: [{ name: 'LangChain', icon: 'langchain' }, { name: 'Groq', icon: 'groq' }] },
+  { key: 'mobile', items: [{ name: 'React Native (Expo)', icon: 'expo' }] },
 ]
 
-export default function Secteurs() {
+const Icon = ({ name }) => {
+  const c = { width: 22, height: 22, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round' }
+  switch (name) {
+    case 'react': return <svg {...c}><circle cx="12" cy="12" r="2" /><ellipse cx="12" cy="12" rx="10" ry="4" /><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)" /><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)" /></svg>
+    case 'node': return <svg {...c}><path d="M12 2l9 5v10l-9 5-9-5V7l9-5z" /><path d="M9 14c0 1 .8 2 3 2s3-1 3-2-1-1.5-3-2-3-1-3-2 .8-2 3-2 3 1 3 2" /></svg>
+    case 'express': return <svg {...c}><path d="M3 12h18" /><path d="M5 7l14 10M19 7L5 17" /></svg>
+    case 'mongo': return <svg {...c}><path d="M12 2c2 4 5 7 5 11s-2 7-5 9c-3-2-5-5-5-9s3-7 5-11z" /><line x1="12" y1="2" x2="12" y2="22" /></svg>
+    case 'postgres': return <svg {...c}><ellipse cx="12" cy="6" rx="8" ry="3" /><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6" /><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" /></svg>
+    case 'supabase': return <svg {...c}><path d="M13 2L4 14h7l-2 8 10-12h-7l1-8z" /></svg>
+    case 'langchain': return <svg {...c}><circle cx="6" cy="12" r="3" /><circle cx="18" cy="12" r="3" /><path d="M9 12h6" /></svg>
+    case 'groq': return <svg {...c}><circle cx="12" cy="12" r="9" /><path d="M8 12a4 4 0 014-4M12 16a4 4 0 004-4" /></svg>
+    case 'expo': return <svg {...c}><path d="M12 3l9 16H3l9-16z" /></svg>
+    default: return null
+  }
+}
+
+export default function Stack() {
+  const { t } = useLocale()
   return (
-    <section id="secteurs" className="py-24 md:py-36 px-6 md:px-12 bg-black-deep">
-      <div className="mx-auto" style={{ maxWidth: '1280px' }}>
-        <div className="mb-16 md:mb-20 text-center mx-auto" style={{ maxWidth: '680px' }}>
+    <section id="stack" className="relative py-24 md:py-32 px-6 md:px-12 bg-black-deep overflow-hidden">
+      <div className="mx-auto" style={{ maxWidth: '1200px' }}>
+        <div className="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-orange text-sm tracking-[0.3em] uppercase mb-4 block"
+            className="text-orange text-[11px] tracking-[0.4em] uppercase font-semibold mb-5 block"
           >
-            Pour qui
+            {t('stack.tag')}
           </motion.span>
           <motion.h2
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-offwhite tracking-tight"
+            className="text-offwhite tracking-tight"
+            style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)', lineHeight: 1.02, fontWeight: 700 }}
           >
-            Conçu pour <span className="text-orange">votre métier.</span>
+            {t('stack.title1')} <span className="text-orange">{t('stack.title2')}</span>
           </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-offwhite/55 text-base md:text-lg mt-6 leading-relaxed"
-          >
-            Chaque secteur a ses réalités. Votre logiciel est construit autour de votre façon
-            de travailler — pas l'inverse.
-          </motion.p>
         </div>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
-            gap: '1.25rem',
-          }}
-        >
-          {secteurs.map((s, i) => (
+        <div className="space-y-3">
+          {GROUPS.map((g, i) => (
             <motion.div
-              key={s.nom}
-              initial={{ opacity: 0, y: 40 }}
+              key={g.key}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, delay: (i % 3) * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="group flex items-start gap-4 rounded-2xl p-7 transition-colors duration-500"
-              style={{ backgroundColor: '#0E0E0E', border: '1px solid rgba(227,231,211,0.08)' }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.07 }}
+              className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-5 md:p-6 rounded-2xl border border-offwhite/10 bg-offwhite/[0.02] hover:border-orange/30 transition-colors"
             >
-              <div
-                className="shrink-0 flex items-center justify-center rounded-xl text-orange transition-colors duration-500 group-hover:bg-orange group-hover:text-black-deep"
-                style={{ width: '52px', height: '52px', backgroundColor: 'rgba(252,122,30,0.1)' }}
-              >
-                {s.icon}
+              <div className="md:w-44 shrink-0">
+                <div className="text-[10px] uppercase tracking-widest text-offwhite/40 mb-1">{t('stack.cat')}</div>
+                <div className="text-base font-bold text-offwhite">{t(`stack.${g.key}`)}</div>
               </div>
-              <div>
-                <h3 className="text-lg font-bold text-offwhite mb-1.5 tracking-tight">{s.nom}</h3>
-                <p className="text-offwhite/65 text-sm leading-relaxed">{s.desc}</p>
+              <div className="flex flex-wrap gap-2">
+                {g.items.map((it) => (
+                  <div
+                    key={it.name}
+                    className="flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-black-deep border border-offwhite/10 text-offwhite/85 hover:border-orange hover:text-orange transition-colors"
+                  >
+                    <span className="text-orange"><Icon name={it.icon} /></span>
+                    <span className="text-sm font-medium">{it.name}</span>
+                  </div>
+                ))}
               </div>
             </motion.div>
           ))}
         </div>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-center text-offwhite/60 text-sm mt-12"
-        >
-          Votre secteur n'est pas listé ?{' '}
-          <a href="#contact" className="text-orange hover:underline">Parlons-en</a>{' '}
-          — nous construisons sur mesure.
-        </motion.p>
       </div>
     </section>
   )

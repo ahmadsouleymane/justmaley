@@ -1,151 +1,107 @@
 import { motion } from 'framer-motion'
-
+import { useLocale } from '../i18n.jsx'
 
 export default function About() {
+  const { t } = useLocale()
   return (
-    <section id="about" className="py-24 md:py-36 px-6 md:px-12 bg-green-dark overflow-hidden">
+    <section id="about" className="relative py-24 md:py-36 px-6 md:px-12 bg-green-dark overflow-hidden">
       <div
         className="mx-auto"
         style={{
-          maxWidth: '1280px',
+          maxWidth: '1200px',
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 380px), 1fr))',
-          gap: '4rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 400px), 1fr))',
+          gap: '5rem',
           alignItems: 'center',
         }}
       >
+        {/* Portrait — unique photo du site */}
         <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="relative"
-          style={{ maxWidth: '460px' }}
+          transition={{ duration: 0.7 }}
+          className="relative mx-auto w-full"
+          style={{ maxWidth: '440px' }}
         >
-          {/* Bloc accent derrière */}
-          <div
-            className="absolute rounded-3xl bg-orange"
-            style={{ inset: '1.25rem -1.25rem -1.25rem 1.25rem', zIndex: 0, opacity: 0.9 }}
-          />
-
-          {/* Carte photo */}
-          <div
-            className="relative overflow-hidden rounded-3xl"
-            style={{ aspectRatio: '4/4.6', backgroundColor: '#0A0A0A', border: '1px solid rgba(252,122,30,0.2)', zIndex: 1 }}
-          >
-            <img
-              src="/founder.jpg"
-              alt="Ahmad Souleymane — fondateur de JustMaley"
-              className="w-full h-full absolute inset-0"
-              width="800"
-              height="920"
-              style={{ objectFit: 'cover', objectPosition: 'center 20%' }}
-              loading="lazy"
-              decoding="async"
-            />
-            {/* Teinte orange subtile */}
+          <div className="relative" style={{ aspectRatio: '1 / 1' }}>
             <div
-              className="absolute inset-0"
-              style={{ background: 'linear-gradient(180deg, rgba(252,122,30,0.10) 0%, transparent 35%)', mixBlendMode: 'overlay' }}
-            />
-            {/* Dégradé bas pour lisibilité */}
-            <div
-              className="absolute inset-x-0 bottom-0"
-              style={{ height: '55%', background: 'linear-gradient(180deg, transparent 0%, rgba(10,10,10,0.55) 55%, rgba(10,10,10,0.92) 100%)' }}
-            />
-
-            {/* Badge garantie flottant */}
-            <div
-              className="absolute flex items-center gap-2 rounded-full px-3.5 py-2"
+              className="absolute inset-0 rounded-[2rem]"
               style={{
-                top: '1rem', left: '1rem',
-                backgroundColor: 'rgba(10,10,10,0.55)',
-                backdropFilter: 'blur(8px)',
-                border: '1px solid rgba(252,122,30,0.3)',
+                background: 'linear-gradient(160deg, #FC7A1E 0%, #d9651a 70%, #b04a0d 100%)',
+                boxShadow: '0 40px 100px -20px rgba(252,122,30,0.4)',
               }}
-            >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FC7A1E" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 2l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V5z" /><polyline points="8.5 11.5 11 14 15.5 9.5" />
+              aria-hidden="true"
+            />
+            <img
+              src="/profile face.png"
+              alt="Ahmad Souleymane, développeur web full-stack à Yamoussoukro"
+              className="absolute inset-0 w-full h-full z-10"
+              style={{
+                objectFit: 'contain',
+                objectPosition: 'center bottom',
+                filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.25))',
+              }}
+            />
+          </div>
+        </motion.div>
+
+        <div>
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-orange text-[11px] tracking-[0.4em] uppercase font-semibold mb-5 block"
+          >
+            {t('about.tag')}
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-offwhite tracking-tight mb-8"
+            style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)', lineHeight: 1.02, fontWeight: 700 }}
+          >
+            {t('about.title1')}<br /><span className="text-orange">{t('about.title2')}</span>
+          </motion.h2>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="space-y-5 text-offwhite/75 text-base md:text-[17px] leading-relaxed"
+          >
+            <p>{t('about.p1')}</p>
+            <p>{t('about.p2')}</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-9 pt-6 border-t border-offwhite/10 flex flex-wrap gap-x-8 gap-y-3 text-sm text-offwhite/55"
+          >
+            <span className="flex items-center gap-2">
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="#FC7A1E" strokeWidth="2">
+                <path d="M10 2C6.13 2 3 5.13 3 9c0 5.25 7 9 7 9s7-3.75 7-9c0-3.87-3.13-7-7-7z" />
+                <circle cx="10" cy="9" r="2.5" />
               </svg>
-              <span className="text-offwhite text-xs font-semibold tracking-wide">Satisfait ou remboursé</span>
-            </div>
-
-            {/* Nom + rôle en bas */}
-            <div className="absolute inset-x-0 bottom-0 p-6 z-10">
-              <div className="flex items-center gap-2.5 mb-4">
-                <div
-                  className="flex items-center justify-center rounded-lg font-bold text-black-deep"
-                  style={{ width: '34px', height: '34px', background: '#FC7A1E', fontFamily: 'var(--font-cool)', fontSize: '18px' }}
-                >
-                  J
-                </div>
-                <div>
-                  <div className="text-offwhite font-bold tracking-tight leading-none" style={{ fontSize: '17px' }}>
-                    Ahmad Souleymane
-                  </div>
-                  <div className="text-offwhite/55 text-xs mt-1">Fondateur · JustMaley</div>
-                </div>
-              </div>
-
-              {/* Stats en barre vitrée */}
-              <div
-                className="grid grid-cols-3 rounded-xl overflow-hidden"
-                style={{ backgroundColor: 'rgba(10,10,10,0.5)', backdropFilter: 'blur(8px)', border: '1px solid rgba(227,231,211,0.1)' }}
-              >
-                {[
-                  { v: '14 j', l: 'Garantie' },
-                  { v: '1 an', l: 'Hébergement' },
-                  { v: '100%', l: 'Sur mesure' },
-                ].map((s, i) => (
-                  <div
-                    key={s.l}
-                    className="px-2 py-3 text-center"
-                    style={{ borderLeft: i === 0 ? 'none' : '1px solid rgba(227,231,211,0.1)' }}
-                  >
-                    <div className="text-orange font-bold tracking-tight" style={{ fontFamily: 'var(--font-cool)', fontSize: '20px' }}>
-                      {s.v}
-                    </div>
-                    <div className="text-offwhite/45" style={{ fontSize: '10px' }}>{s.l}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <span className="text-orange text-sm tracking-[0.3em] uppercase mb-4 block">
-            À propos
-          </span>
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-offwhite tracking-tight mb-6">
-            JustMaley, par <span className="text-orange">Ahmad Souleymane.</span>
-          </h2>
-          <div className="space-y-4 text-offwhite/60 text-base leading-relaxed">
-            <p>
-              JustMaley est une agence basée à <span className="text-offwhite">Yamoussoukro, Côte d'ivoire</span>,
-              spécialisée dans les logiciels de gestion sur mesure pour les entreprises —
-              PME, moyennes et grandes structures.
-            </p>
-            <p>
-              Trop d&apos;entreprises pilotent encore leur activité dans des cahiers et des fichiers
-              Excel éparpillés. Notre mission : vous donner un outil unique, fiable et simple pour
-              gérer vos stocks, vos ventes, votre personnel et votre trésorerie — et reprendre le
-              contrôle de votre activité.
-            </p>
-            <p>
-              Notre approche est simple : <span className="text-offwhite">écouter, construire, garantir</span>.
-              Un travail sérieux, livré dans les délais, et une garantie satisfait ou remboursé.
-              Parce que votre confiance vaut plus que tout.
-            </p>
-          </div>
-
-          
-        </motion.div>
+              {t('about.loc')}
+            </span>
+            <span className="flex items-center gap-2">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FC7A1E" strokeWidth="2" strokeLinecap="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20" />
+              </svg>
+              {t('about.remote')}
+            </span>
+          </motion.div>
+        </div>
       </div>
     </section>
   )

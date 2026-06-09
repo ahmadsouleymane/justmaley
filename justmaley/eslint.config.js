@@ -23,7 +23,10 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // motion s'utilise comme namespace JSX (<motion.div>) — l'ignorer dans no-unused-vars
+      'no-unused-vars': ['error', { varsIgnorePattern: '^([A-Z_]|motion$)' }],
+      // i18n.jsx exporte volontairement des helpers + composants côte à côte
+      'react-refresh/only-export-components': 'off',
     },
   },
 ])
