@@ -55,6 +55,24 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
+            <div className="relative mx-auto w-full mb-8" style={{ maxWidth: '320px' }}>
+              <div
+                className="absolute pointer-events-none"
+                style={{
+                  width: '130%', height: '110%',
+                  top: '-5%', left: '-15%',
+                  background: 'radial-gradient(ellipse 55% 50% at 50% 55%, rgba(252,122,30,0.22) 0%, transparent 70%)',
+                  filter: 'blur(55px)',
+                }}
+                aria-hidden="true"
+              />
+              <img
+                src="/p4.png"
+                alt="Ahmad Souleymane, posture réflexive"
+                className="relative block w-full h-auto"
+                loading="lazy"
+              />
+            </div>
             {facts.map((f, i) => (
               <div
                 key={f.l}

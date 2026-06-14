@@ -259,7 +259,7 @@ export default function Hero() {
             />
             {/* Portrait — transparent, sans cadre, sans ombre dure */}
             <img
-              src="/profile face.png"
+              src="/p1.png"
               alt="Ahmad Souleymane"
               className="relative block w-full h-auto"
             />

@@ -11,25 +11,61 @@ export default function Services() {
   return (
     <section id="services" className="relative py-24 md:py-32 px-6 md:px-10 bg-black-deep overflow-hidden">
       <div className="mx-auto" style={{ maxWidth: '1080px' }}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="max-w-2xl mb-12 md:mb-16"
+        <div
+          className="mb-12 md:mb-16"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))',
+            gap: '2.5rem',
+            alignItems: 'center',
+          }}
         >
-          <div className="flex items-center gap-2.5 text-orange text-sm mb-4">
-            <span className="font-mono">03</span>
-            <span className="w-8 h-px bg-orange/50" />
-            <span className="lowercase tracking-wide">{t('services.eyebrow')}</span>
-          </div>
-          <h2 className="text-offwhite tracking-tight mb-6" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', lineHeight: 1.04, fontWeight: 700 }}>
-            {t('services.h1')}
-          </h2>
-          <p className="text-offwhite/60 text-base md:text-lg leading-relaxed" style={{ maxWidth: '620px' }}>
-            {t('services.intro')}
-          </p>
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="relative mx-auto w-full hidden md:block order-1"
+            style={{ maxWidth: '360px', transform: 'scaleX(-1)' }}
+          >
+            <div
+              className="absolute pointer-events-none"
+              style={{
+                width: '120%', height: '110%',
+                top: '-5%', left: '-10%',
+                background: 'radial-gradient(ellipse 55% 50% at 45% 55%, rgba(252,122,30,0.25) 0%, transparent 70%)',
+                filter: 'blur(50px)',
+              }}
+              aria-hidden="true"
+            />
+            <img
+              src="/p2.png"
+              alt="Ahmad Souleymane pointant vers les offres"
+              className="relative block w-full h-auto"
+              loading="lazy"
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="order-2"
+          >
+            <div className="flex items-center gap-2.5 text-orange text-sm mb-4">
+              <span className="font-mono">03</span>
+              <span className="w-8 h-px bg-orange/50" />
+              <span className="lowercase tracking-wide">{t('services.eyebrow')}</span>
+            </div>
+            <h2 className="text-offwhite tracking-tight mb-6" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', lineHeight: 1.04, fontWeight: 700 }}>
+              {t('services.h1')}
+            </h2>
+            <p className="text-offwhite/60 text-base md:text-lg leading-relaxed" style={{ maxWidth: '620px' }}>
+              {t('services.intro')}
+            </p>
+          </motion.div>
+        </div>
 
         <div className="border-t border-offwhite/10">
           {items.map((it, i) => (
