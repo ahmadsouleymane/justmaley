@@ -4,12 +4,9 @@ import Loader from './components/Loader'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 
+const Work = lazy(() => import('./components/Portfolio'))
 const About = lazy(() => import('./components/About'))
 const Services = lazy(() => import('./components/Services'))
-const Portfolio = lazy(() => import('./components/Portfolio'))
-const Stack = lazy(() => import('./components/Secteurs'))
-const Avantages = lazy(() => import('./components/Probleme'))
-const Processus = lazy(() => import('./components/Processus'))
 const Contact = lazy(() => import('./components/Contact'))
 const Footer = lazy(() => import('./components/Footer'))
 
@@ -17,7 +14,7 @@ function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1800)
+    const timer = setTimeout(() => setLoading(false), 1400)
     return () => clearTimeout(timer)
   }, [])
 
@@ -29,12 +26,9 @@ function App() {
       <main>
         <Hero />
         <Suspense fallback={null}>
+          <Work />
           <About />
           <Services />
-          <Portfolio />
-          <Stack />
-          <Avantages />
-          <Processus />
           <Contact />
         </Suspense>
       </main>

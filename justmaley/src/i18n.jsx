@@ -1,7 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 
-/* ---------- Détection automatique ---------- */
-
 const FRANCOPHONE_TZ = new Set([
   'Africa/Abidjan', 'Africa/Bamako', 'Africa/Dakar', 'Africa/Lome', 'Africa/Niamey',
   'Africa/Ouagadougou', 'Africa/Porto-Novo', 'Africa/Brazzaville', 'Africa/Kinshasa',
@@ -11,376 +9,222 @@ const FRANCOPHONE_TZ = new Set([
   'Indian/Antananarivo', 'Indian/Mauritius',
 ])
 
-const XOF_TZ = new Set([
-  'Africa/Abidjan', 'Africa/Bamako', 'Africa/Dakar', 'Africa/Lome', 'Africa/Niamey',
-  'Africa/Ouagadougou', 'Africa/Porto-Novo',
-])
-const XAF_TZ = new Set([
-  'Africa/Brazzaville', 'Africa/Douala', 'Africa/Libreville', 'Africa/Bangui',
-  'Africa/Ndjamena', 'Africa/Malabo',
-])
-const EUR_TZ_PREFIX = ['Europe/']
-const GBP_TZ = new Set(['Europe/London'])
-
-function detectLocale() {
-  if (typeof window === 'undefined') return { lang: 'fr', currency: 'XOF' }
+function detectLang() {
+  if (typeof window === 'undefined') return 'fr'
   try {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''
     const navLang = (navigator.language || 'fr').slice(0, 2).toLowerCase()
-
-    let currency = 'USD'
-    if (XOF_TZ.has(tz)) currency = 'XOF'
-    else if (XAF_TZ.has(tz)) currency = 'XAF'
-    else if (GBP_TZ.has(tz)) currency = 'GBP'
-    else if (EUR_TZ_PREFIX.some((p) => tz.startsWith(p))) currency = 'EUR'
-
-    let lang = 'en'
-    if (FRANCOPHONE_TZ.has(tz)) lang = 'fr'
-    else if (navLang === 'fr') lang = 'fr'
-
-    return { lang, currency }
+    if (FRANCOPHONE_TZ.has(tz) || navLang === 'fr') return 'fr'
+    return 'en'
   } catch {
-    return { lang: 'fr', currency: 'XOF' }
+    return 'fr'
   }
 }
-
-/* ---------- Conversion des prix (base EUR) ---------- */
-
-// 1 EUR = X
-const RATES = { EUR: 1, XOF: 655.957, XAF: 655.957, USD: 1.08, GBP: 0.85 }
-
-function roundForCurrency(value, currency) {
-  if (currency === 'XOF' || currency === 'XAF') return Math.round(value / 5000) * 5000
-  if (currency === 'USD' || currency === 'EUR' || currency === 'GBP') return Math.round(value / 5) * 5
-  return Math.round(value)
-}
-
-export function formatPrice(eurAmount, currency, lang) {
-  const converted = roundForCurrency(eurAmount * (RATES[currency] || 1), currency)
-  const locale = lang === 'fr' ? 'fr-FR' : 'en-US'
-  try {
-    return new Intl.NumberFormat(locale, {
-      style: 'currency',
-      currency,
-      maximumFractionDigits: 0,
-      minimumFractionDigits: 0,
-    }).format(converted)
-  } catch {
-    return `${converted} ${currency}`
-  }
-}
-
-/* ---------- Traductions ---------- */
 
 export const translations = {
   fr: {
-    'nav.about': 'À propos',
-    'nav.services': 'Offres',
-    'nav.work': 'Réalisations',
+    'nav.work': 'Le travail',
+    'nav.about': 'Moi',
+    'nav.services': 'Services',
     'nav.contact': 'Contact',
-    'nav.cta': 'Démarrer un projet',
+    'nav.cta': 'M’écrire',
 
-    'hero.tag': 'Développeur Web · SaaS Builder',
-    'hero.title1': 'Votre prochain produit.',
-    'hero.title2': 'Pas dans 7 mois. Dans 7 jours.',
-    'hero.sub': 'Je conçois, développe et déploie votre application web ou votre SaaS sur mesure. Vous validez l’idée le lundi — elle est en production le lundi suivant.',
-    'hero.cta1': 'Voir mes offres',
-    'hero.cta2': 'Démarrer un projet',
-    'hero.live': 'En production',
-    'hero.url': 'misterall.com',
-    'hero.badge.users': '350+ utilisateurs',
-    'hero.badge.usersSub': 'en production',
+    'hero.proofBadge': '350+',
+    'hero.proof': 'utilisateurs actifs sur mon dernier SaaS',
+    'hero.h1a': 'Ton idée d’app web,',
+    'hero.h1b': 'en ligne dans 14 jours.',
+    'hero.sub': 'Je code. Je teste. Je déploie. Tu reçois un produit qui tourne en prod, avec son nom de domaine, son hébergement et son code source. Si je dépasse les 14 jours, je te rembourse.',
+    'hero.cta1': 'Démarrer mon projet',
+    'hero.cta2': 'Voir un projet en prod',
+    'hero.r1': 'Réponse sous 24h',
+    'hero.r2': 'Devis gratuit',
+    'hero.r3': 'Garantie 14 jours',
     'hero.badge.days': 'jours',
-    'hero.badge.delivery': 'livraison',
+    'hero.badge.delivered': 'livré',
 
-    'about.tag': 'À propos',
-    'about.title1': 'Un partenaire technique.',
-    'about.title2': 'Un produit en ligne.',
-    'about.p1': 'Ahmad Souleymane, développeur web full-stack. J’accompagne entrepreneurs et porteurs de projets dans la conception, le développement et la mise en production de leurs applications web et SaaS — du cadrage stratégique à la livraison du code source.',
-    'about.p2': 'Double formation en développement et en économie-gestion : chaque ligne de code sert votre modèle d’affaires. L’objectif n’est pas une démonstration technique, mais un produit utilisable, en ligne, qui crée de la valeur.',
-    'about.loc': 'Yamoussoukro, Côte d’Ivoire',
-    'about.remote': 'Collaboration à distance · clients francophones et anglophones',
+    'work.eyebrow': 'déjà en ligne',
+    'work.h1': 'Mon dernier projet.',
+    'work.live': 'Live',
+    'work.kind': 'SaaS · IA · EdTech',
+    'work.role': 'Pensé, codé, lancé. Tout seul.',
+    'work.title': 'MisterAll',
+    'work.desc': 'Tu lui donnes un cours. Il te sort un résumé, un quiz et des fiches de révision en moins d’une minute. 350 étudiants s’en servent chaque semaine pour réviser leurs partiels.',
+    'work.stat1.v': '350+',
+    'work.stat1.l': 'utilisateurs actifs',
+    'work.stat2.v': '10k+',
+    'work.stat2.l': 'contenus générés',
+    'work.stat3.v': '14j',
+    'work.stat3.l': 'd’idée à prod',
+    'work.see': 'misterall.com',
+    'work.next': 'Le tien ressemblerait à quoi ?',
 
-    'services.tag': 'Offres',
-    'services.title1': 'Trois offres.',
-    'services.title2': 'Un produit livré.',
-    'services.popular': 'RECOMMANDÉ',
-    'services.from': 'À partir de',
-    'services.delay': 'Livraison',
-    'services.days': 'jours',
-    'services.discuss': 'Demander un devis',
+    'about.eyebrow': 'qui parle ?',
+    'about.h1': 'Développeur web full-stack.',
+    'about.p1': 'Je m’appelle Ahmad Souleymane. Je code depuis la Côte d’Ivoire et je construis des applications web pour des entrepreneurs qui veulent voir leur produit en ligne avant la fin du mois.',
+    'about.p2': 'Pas de démo qui marche seulement sur mon laptop. Je livre une appli en production, avec son nom de domaine branché, son hébergement payé et le code source dans tes mains. Tes utilisateurs peuvent l’ouvrir le jour de la livraison.',
+    'about.p3': 'Je bosse en remote pour des clients en Afrique, en Europe et au Canada. Hors du code : basket, lecture, et j’ai un faible pour la cuisine ivoirienne (le yassa surtout).',
+    'about.fact1.l': 'Basé en',
+    'about.fact1.v': 'Côte d’Ivoire',
+    'about.fact2.l': 'Stack favorite',
+    'about.fact2.v': 'React, Node, PostgreSQL',
+    'about.fact3.l': 'Langues',
+    'about.fact3.v': 'Français, Anglais',
+    'about.fact4.l': 'Délai',
+    'about.fact4.v': '14 jours en moyenne',
 
-    'services.1.title': 'Application web sur mesure',
-    'services.1.desc': 'Une application centrée sur votre fonctionnalité clé, avec authentification, page de présentation et expérience responsive. Mise en production complète, code source remis.',
-    'services.1.f1': 'Authentification utilisateur',
-    'services.1.f2': 'Page de présentation',
-    'services.1.f3': 'Mise en production',
-    'services.1.f4': 'Code source remis',
+    'services.eyebrow': 'ce que je peux faire pour toi',
+    'services.h1': 'Trois façons de bosser ensemble.',
+    'services.intro': 'Pas de grille tarifaire affichée. Chaque projet a son contexte. Tu m’écris, je te dis si je peux le faire, combien ça coûte, combien de temps ça prend. Réponse dans la journée.',
+    'services.1.t': 'Ton app web de zéro',
+    'services.1.d': 'Tu as une idée. Je te livre une app en ligne. Connexion utilisateur, base de données, design propre, hébergement et nom de domaine inclus. Le code est à toi.',
+    'services.2.t': 'Une app avec de l’IA dedans',
+    'services.2.d': 'Un chatbot qui connaît ton métier. Un assistant qui lit tes PDF. Du contenu généré à la volée. Branché à Groq, OpenAI ou Claude.',
+    'services.3.t': 'Un projet à rattraper',
+    'services.3.d': 'Un dev parti avant la fin. Une app qui plante. Du code que personne ne comprend plus. J’ouvre le capot, je diagnostique, je répare, je termine.',
+    'services.cta': 'On en parle ?',
 
-    'services.2.title': 'Application web avec IA',
-    'services.2.desc': 'Une application enrichie d’intelligence artificielle — assistant conversationnel, génération de contenu, traitement de documents. Production complète, code source remis.',
-    'services.2.f1': 'Assistant IA intégré',
-    'services.2.f2': 'Génération de contenu',
-    'services.2.f3': 'Authentification & production',
-    'services.2.f4': 'Code source remis',
+    'contact.eyebrow': 'on commence ?',
+    'contact.h1': 'Parle-moi de ton projet.',
+    'contact.h2': 'Je te réponds aujourd’hui.',
+    'contact.sub': 'Cinq champs, trente secondes. Je lis chaque message moi-même et je réponds sous 24h. Souvent dans l’heure si tu passes par WhatsApp.',
+    'contact.waSub': 'souvent dans l’heure',
+    'contact.liSub': 'on se connecte ?',
 
-    'services.3.title': 'Audit et reprise de projet',
-    'services.3.desc': 'Diagnostic technique approfondi, correction des dysfonctionnements et finalisation des fonctionnalités d’un projet existant ou interrompu.',
-    'services.3.f1': 'Diagnostic technique',
-    'services.3.f2': 'Résolution des bogues',
-    'services.3.f3': 'Finalisation des fonctionnalités',
-    'services.3.f4': 'Rapport détaillé',
+    'contact.form.subjectPrefix': 'Nouveau projet',
+    'contact.form.name': 'Comment tu t’appelles ?',
+    'contact.form.namePh': 'Ton prénom',
+    'contact.form.email': 'Où je peux te répondre ?',
+    'contact.form.emailPh': 'toi@ton-email.com',
+    'contact.form.project': 'C’est quel genre de projet ?',
+    'contact.form.budget': 'Tu as un budget en tête ?',
+    'contact.form.budgetPh': 'Choisis une fourchette',
+    'contact.form.message': 'Raconte-moi ça en deux phrases',
+    'contact.form.messagePh': 'Une idée, un objectif, une deadline. Pas besoin d’un brief de 4 pages.',
+    'contact.form.send': 'Envoyer mon message',
+    'contact.form.sending': 'Envoi…',
+    'contact.form.sentTitle': 'Message envoyé.',
+    'contact.form.sentSub': 'Je l’ai reçu dans ma boîte. Je te réponds dans la journée, souvent dans l’heure si tu m’as donné un WhatsApp.',
+    'contact.form.reassurance': 'Je lis chaque message moi-même. Réponse sous 24h, promis.',
+    'contact.form.errKey': 'Petite panne côté envoi. Écris-moi directement à souleymane@justmaley.tech, je te réponds dans la journée.',
+    'contact.form.errNetwork': 'Pas de connexion. Réessaie dans un instant ou écris-moi sur WhatsApp.',
+    'contact.form.errGeneric': 'Impossible d’envoyer. Réessaie ou écris-moi directement à souleymane@justmaley.tech.',
 
-    'services.add.title': 'Modules complémentaires',
-    'services.add.sub': 'Disponibles avec chaque offre',
-    'services.add.1': 'Paiement en ligne (Stripe, PayPal)',
-    'services.add.2': 'Tableau de bord administrateur',
-    'services.add.3': 'Nom de domaine et adresses professionnelles',
-    'services.add.4': 'Fonctionnalité sur mesure',
-    'services.add.5': 'Pack complet prêt à commercialiser',
-    'services.add.6': 'Maintenance mensuelle',
-    'services.add.7': 'Livraison express',
-
-    'work.tag': 'Réalisation phare',
-    'work.title1': 'Une preuve.',
-    'work.title2': 'En production.',
-    'work.live': 'EN PRODUCTION',
-    'work.kind': 'SaaS · Intelligence Artificielle',
-    'work.desc': 'MisterAll, plateforme d’apprentissage propulsée par l’intelligence artificielle. À partir d’un cours, l’application génère automatiquement résumés, quiz et fiches de révision. Conçue, développée et déployée de l’idée initiale à la mise en ligne.',
-    'work.stat1': 'Utilisateurs actifs',
-    'work.stat2': 'Contenus générés',
-    'work.stat3': 'Conception · Code · Production',
-    'work.stack': 'Technologies utilisées',
-    'work.see': 'Visiter le projet',
-    'work.discuss': 'Construisons le vôtre',
-
-    'stack.tag': 'Expertise technique',
-    'stack.title1': 'Une stack moderne.',
-    'stack.title2': 'Une exécution maîtrisée.',
-    'stack.cat': 'Domaine',
-    'stack.front': 'Front-end',
-    'stack.back': 'Back-end',
-    'stack.db': 'Bases de données',
-    'stack.ai': 'Intelligence artificielle',
-    'stack.mobile': 'Mobile',
-
-    'why.tag': 'Engagements',
-    'why.title1': 'Une démarche.',
-    'why.title2': 'Quatre engagements.',
-    'why.1.title': 'Un produit déjà en production',
-    'why.1.text': 'MisterAll est en ligne, utilisé quotidiennement. Plus de 350 utilisateurs et 10 000 contenus générés via IA.',
-    'why.2.title': 'Votre code, votre propriété',
-    'why.2.text': 'Code source intégral, documentation et accès remis. Aucun verrou technique, une autonomie durable.',
-    'why.3.title': 'Un interlocuteur unique',
-    'why.3.text': 'Vous échangez directement avec l’expert qui conçoit, développe et déploie. Sans intermédiation.',
-    'why.4.title': 'Délais contractualisés',
-    'why.4.text': 'Livraison en sept jours pour les offres standards. La date annoncée est la date tenue.',
-
-    'process.tag': 'Méthode',
-    'process.title1': 'Quatre étapes.',
-    'process.title2': 'Sept jours.',
-    'process.1.title': 'Cadrage stratégique',
-    'process.1.text': 'Définition des objectifs, de la fonctionnalité cœur et du périmètre de livraison.',
-    'process.2.title': 'Conception et développement',
-    'process.2.text': 'Architecture, base de données et interface. Aperçus partagés à chaque jalon.',
-    'process.3.title': 'Mise en production',
-    'process.3.text': 'Déploiement sur infrastructure professionnelle, configuration du domaine, tests multi-appareils.',
-    'process.4.title': 'Transfert et accompagnement',
-    'process.4.text': 'Remise du code source, des accès et de la documentation. Accompagnement au démarrage.',
-
-    'contact.tag': 'Contact',
-    'contact.title1': 'Parlons de',
-    'contact.title2': 'votre projet.',
-    'contact.sub': 'Un premier échange pour évaluer la faisabilité, le périmètre et le délai. Sans engagement.',
-    'contact.email': 'Adresse électronique',
-    'contact.wa': 'WhatsApp',
-    'contact.waSub': 'Réponse sous 24 heures',
-    'contact.form.name': 'Nom complet',
-    'contact.form.namePh': 'Votre nom',
-    'contact.form.email': 'Adresse électronique',
-    'contact.form.emailPh': 'vous@entreprise.com',
-    'contact.form.msg': 'Description du projet',
-    'contact.form.msgPh': 'Présentez votre projet en quelques lignes…',
-    'contact.form.send': 'Envoyer ma demande',
-
-    'footer.title1': 'Donnez vie',
-    'footer.title2': 'à votre projet.',
-    'footer.sub': 'Sept jours de livraison. Un code source qui vous appartient. Un interlocuteur unique.',
-    'footer.cta': 'Démarrer un projet',
     'footer.rights': 'Tous droits réservés.',
   },
   en: {
-    'nav.about': 'About',
-    'nav.services': 'Offerings',
-    'nav.work': 'Case study',
+    'nav.work': 'Work',
+    'nav.about': 'Me',
+    'nav.services': 'Services',
     'nav.contact': 'Contact',
-    'nav.cta': 'Start a project',
+    'nav.cta': 'Write me',
 
-    'hero.tag': 'Full-Stack Web Dev · SaaS Builder',
-    'hero.title1': 'Your next product.',
-    'hero.title2': 'Not in 7 months. In 7 days.',
-    'hero.sub': 'I design, build and ship your custom web app or SaaS. You validate the idea on Monday — it’s live in production the following Monday.',
-    'hero.cta1': 'View offerings',
-    'hero.cta2': 'Start a project',
-    'hero.live': 'Live in production',
-    'hero.url': 'misterall.com',
-    'hero.badge.users': '350+ users',
-    'hero.badge.usersSub': 'in production',
+    'hero.proofBadge': '350+',
+    'hero.proof': 'active users on my last SaaS',
+    'hero.h1a': 'Your web app idea,',
+    'hero.h1b': 'live in 14 days.',
+    'hero.sub': 'I code. I test. I deploy. You get a product running in production, with its domain, its hosting and its source code. If I miss the 14 days, I refund you.',
+    'hero.cta1': 'Start my project',
+    'hero.cta2': 'See a project live',
+    'hero.r1': 'Reply within 24h',
+    'hero.r2': 'Free quote',
+    'hero.r3': '14-day guarantee',
     'hero.badge.days': 'days',
-    'hero.badge.delivery': 'delivery',
+    'hero.badge.delivered': 'shipped',
 
-    'about.tag': 'About',
-    'about.title1': 'A technical partner.',
-    'about.title2': 'A product in production.',
-    'about.p1': 'Ahmad Souleymane, full-stack web developer. I partner with founders and project owners to design, build and ship custom web applications and SaaS products — from strategic scoping to source code handover.',
-    'about.p2': 'Dual training in software engineering and business administration: every line of code serves your business model. The goal is not a technical demo, but a usable, live product that creates value.',
-    'about.loc': 'Yamoussoukro, Ivory Coast',
-    'about.remote': 'Remote collaboration · English and French-speaking clients',
+    'work.eyebrow': 'already live',
+    'work.h1': 'My latest project.',
+    'work.live': 'Live',
+    'work.kind': 'SaaS · AI · EdTech',
+    'work.role': 'Designed, coded, shipped. Solo.',
+    'work.title': 'MisterAll',
+    'work.desc': 'You give it a course. It hands you back a summary, a quiz and revision sheets in under a minute. 350 students use it every week to prep their exams.',
+    'work.stat1.v': '350+',
+    'work.stat1.l': 'active users',
+    'work.stat2.v': '10k+',
+    'work.stat2.l': 'AI contents generated',
+    'work.stat3.v': '14d',
+    'work.stat3.l': 'from idea to live',
+    'work.see': 'misterall.com',
+    'work.next': 'What would yours look like?',
 
-    'services.tag': 'Offerings',
-    'services.title1': 'Three offerings.',
-    'services.title2': 'One shipped product.',
-    'services.popular': 'RECOMMENDED',
-    'services.from': 'From',
-    'services.delay': 'Delivery',
-    'services.days': 'days',
-    'services.discuss': 'Request a quote',
+    'about.eyebrow': 'who’s talking?',
+    'about.h1': 'Full-stack web developer.',
+    'about.p1': 'I’m Ahmad Souleymane. I code from Ivory Coast and I build web applications for founders who want to see their product live before the end of the month.',
+    'about.p2': 'No demo running only on my laptop. I ship an app in production, with its domain plugged in, its hosting paid, and the source code in your hands. Your users can open it the day I deliver.',
+    'about.p3': 'I work remote with clients in Africa, Europe and Canada. Outside code: basketball, books, and a soft spot for Ivorian food (yassa especially).',
+    'about.fact1.l': 'Based in',
+    'about.fact1.v': 'Ivory Coast',
+    'about.fact2.l': 'Favorite stack',
+    'about.fact2.v': 'React, Node, PostgreSQL',
+    'about.fact3.l': 'Languages',
+    'about.fact3.v': 'French, English',
+    'about.fact4.l': 'Timeline',
+    'about.fact4.v': '14 days on average',
 
-    'services.1.title': 'Custom web application',
-    'services.1.desc': 'A web application centred on your core feature, with authentication, a presentation page and a responsive experience. Full production deployment, source code handed over.',
-    'services.1.f1': 'User authentication',
-    'services.1.f2': 'Presentation page',
-    'services.1.f3': 'Production deployment',
-    'services.1.f4': 'Source code handed over',
+    'services.eyebrow': 'what I can do for you',
+    'services.h1': 'Three ways to work together.',
+    'services.intro': 'No fixed price list. Every project has its context. You write me, I tell you if I can build it, how much it costs, how long it takes. Reply within the day.',
+    'services.1.t': 'Your web app from zero',
+    'services.1.d': 'You have an idea. I ship you a live app. Auth, database, clean design, hosting and domain name included. The code is yours.',
+    'services.2.t': 'An app with AI inside',
+    'services.2.d': 'A chatbot that knows your business. An assistant that reads your PDFs. Content generated on the fly. Wired to Groq, OpenAI or Claude.',
+    'services.3.t': 'A project to rescue',
+    'services.3.d': 'A dev gone before the end. An app that crashes. Code nobody understands anymore. I open the hood, I diagnose, I fix, I finish.',
+    'services.cta': 'Let’s talk?',
 
-    'services.2.title': 'AI-powered web application',
-    'services.2.desc': 'A web application augmented with artificial intelligence — conversational assistant, content generation, document processing. Full production, source code handed over.',
-    'services.2.f1': 'Integrated AI assistant',
-    'services.2.f2': 'Content generation',
-    'services.2.f3': 'Authentication & production',
-    'services.2.f4': 'Source code handed over',
+    'contact.eyebrow': 'shall we?',
+    'contact.h1': 'Tell me about your project.',
+    'contact.h2': 'I’ll reply today.',
+    'contact.sub': 'Five fields, thirty seconds. I read every message myself and I reply within 24h. Often within the hour if you use WhatsApp.',
+    'contact.waSub': 'often within the hour',
+    'contact.liSub': 'let’s connect',
 
-    'services.3.title': 'Audit and project recovery',
-    'services.3.desc': 'In-depth technical audit, resolution of malfunctions and completion of features on an existing or stalled project.',
-    'services.3.f1': 'Technical audit',
-    'services.3.f2': 'Bug resolution',
-    'services.3.f3': 'Feature completion',
-    'services.3.f4': 'Detailed report',
+    'contact.form.subjectPrefix': 'New project',
+    'contact.form.name': 'What’s your name?',
+    'contact.form.namePh': 'Your first name',
+    'contact.form.email': 'Where can I reply?',
+    'contact.form.emailPh': 'you@your-email.com',
+    'contact.form.project': 'What kind of project?',
+    'contact.form.budget': 'Got a budget in mind?',
+    'contact.form.budgetPh': 'Pick a range',
+    'contact.form.message': 'Tell me in two sentences',
+    'contact.form.messagePh': 'An idea, a goal, a deadline. No need for a 4-page brief.',
+    'contact.form.send': 'Send my message',
+    'contact.form.sending': 'Sending…',
+    'contact.form.sentTitle': 'Message sent.',
+    'contact.form.sentSub': 'It just landed in my inbox. I’ll reply within the day, often within the hour if you left me a WhatsApp number.',
+    'contact.form.reassurance': 'I read every message myself. Reply within 24h, promise.',
+    'contact.form.errKey': 'Sending is down. Write me directly at souleymane@justmaley.tech, I’ll reply within the day.',
+    'contact.form.errNetwork': 'No connection. Try again in a sec or message me on WhatsApp.',
+    'contact.form.errGeneric': 'Couldn’t send. Try again or write me at souleymane@justmaley.tech.',
 
-    'services.add.title': 'Add-on modules',
-    'services.add.sub': 'Available with every offering',
-    'services.add.1': 'Online payments (Stripe, PayPal)',
-    'services.add.2': 'Administrator dashboard',
-    'services.add.3': 'Custom domain and professional email',
-    'services.add.4': 'Bespoke feature',
-    'services.add.5': 'Turnkey, ready-to-sell bundle',
-    'services.add.6': 'Monthly maintenance',
-    'services.add.7': 'Express delivery',
-
-    'work.tag': 'Featured case study',
-    'work.title1': 'Proof.',
-    'work.title2': 'In production.',
-    'work.live': 'LIVE IN PRODUCTION',
-    'work.kind': 'SaaS · Artificial Intelligence',
-    'work.desc': 'MisterAll, a learning platform powered by artificial intelligence. From a single course, the application automatically generates summaries, quizzes and revision sheets. Designed, developed and deployed end-to-end.',
-    'work.stat1': 'Active users',
-    'work.stat2': 'Contents generated',
-    'work.stat3': 'Design · Code · Production',
-    'work.stack': 'Technologies used',
-    'work.see': 'Visit the project',
-    'work.discuss': 'Let’s build yours',
-
-    'stack.tag': 'Technical expertise',
-    'stack.title1': 'A modern stack.',
-    'stack.title2': 'Mastered execution.',
-    'stack.cat': 'Domain',
-    'stack.front': 'Front-end',
-    'stack.back': 'Back-end',
-    'stack.db': 'Databases',
-    'stack.ai': 'Artificial intelligence',
-    'stack.mobile': 'Mobile',
-
-    'why.tag': 'Commitments',
-    'why.title1': 'One approach.',
-    'why.title2': 'Four commitments.',
-    'why.1.title': 'A product already in production',
-    'why.1.text': 'MisterAll is live, used daily — over 350 active users and 10,000 AI-generated contents.',
-    'why.2.title': 'Your code, your property',
-    'why.2.text': 'Complete source code, documentation and access. No technical lock-in, lasting autonomy.',
-    'why.3.title': 'A single point of contact',
-    'why.3.text': 'You deal directly with the expert who designs, develops and deploys. No intermediaries.',
-    'why.4.title': 'Contracted timelines',
-    'why.4.text': 'Seven-day delivery for standard offerings. The announced date is the date kept.',
-
-    'process.tag': 'Method',
-    'process.title1': 'Four steps.',
-    'process.title2': 'Seven days.',
-    'process.1.title': 'Strategic scoping',
-    'process.1.text': 'Defining the objectives, the core feature and the delivery scope.',
-    'process.2.title': 'Design and development',
-    'process.2.text': 'Architecture, database and interface. Previews shared at every milestone.',
-    'process.3.title': 'Production deployment',
-    'process.3.text': 'Deployment on professional infrastructure, domain setup, multi-device testing.',
-    'process.4.title': 'Handover and support',
-    'process.4.text': 'Handover of source code, access and documentation. Onboarding support.',
-
-    'contact.tag': 'Contact',
-    'contact.title1': 'Let’s discuss',
-    'contact.title2': 'your project.',
-    'contact.sub': 'A first conversation to assess feasibility, scope and timeline. No commitment.',
-    'contact.email': 'Email address',
-    'contact.wa': 'WhatsApp',
-    'contact.waSub': 'Reply within 24 hours',
-    'contact.form.name': 'Full name',
-    'contact.form.namePh': 'Your name',
-    'contact.form.email': 'Email address',
-    'contact.form.emailPh': 'you@company.com',
-    'contact.form.msg': 'Project brief',
-    'contact.form.msgPh': 'A few lines about your project…',
-    'contact.form.send': 'Send my request',
-
-    'footer.title1': 'Bring your project',
-    'footer.title2': 'to life.',
-    'footer.sub': 'Seven days to delivery. Source code that belongs to you. A single point of contact.',
-    'footer.cta': 'Start a project',
     'footer.rights': 'All rights reserved.',
   },
 }
 
-/* ---------- React context ---------- */
-
 const LocaleContext = createContext(null)
-
-const STORAGE_KEY = 'justmaley.locale.v1'
+const STORAGE_KEY = 'justmaley.locale.v2'
 
 export function LocaleProvider({ children }) {
-  const [state, setState] = useState(() => {
-    if (typeof window === 'undefined') return { lang: 'fr', currency: 'XOF', auto: true }
+  const [lang, setLangState] = useState(() => {
+    if (typeof window === 'undefined') return 'fr'
     try {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null')
-      if (saved?.lang && saved?.currency) return { ...saved, auto: false }
+      const saved = localStorage.getItem(STORAGE_KEY)
+      if (saved === 'fr' || saved === 'en') return saved
     } catch { /* empty */ }
-    const auto = detectLocale()
-    return { ...auto, auto: true }
+    return detectLang()
   })
 
   useEffect(() => {
-    if (state.auto) return
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ lang: state.lang, currency: state.currency })) } catch { /* empty */ }
-  }, [state])
-
-  useEffect(() => {
-    if (typeof document !== 'undefined') document.documentElement.lang = state.lang
-  }, [state.lang])
+    try { localStorage.setItem(STORAGE_KEY, lang) } catch { /* empty */ }
+    if (typeof document !== 'undefined') document.documentElement.lang = lang
+  }, [lang])
 
   const value = useMemo(() => ({
-    lang: state.lang,
-    currency: state.currency,
-    setLang: (lang) => setState((s) => ({ ...s, lang, auto: false })),
-    setCurrency: (currency) => setState((s) => ({ ...s, currency, auto: false })),
-    t: (key) => translations[state.lang]?.[key] ?? translations.fr[key] ?? key,
-    price: (eur) => formatPrice(eur, state.currency, state.lang),
-  }), [state])
+    lang,
+    setLang: setLangState,
+    t: (key) => translations[lang]?.[key] ?? translations.fr[key] ?? key,
+  }), [lang])
 
   return <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>
 }
