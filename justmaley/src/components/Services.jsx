@@ -33,7 +33,7 @@ export default function Services() {
               style={{
                 width: '120%', height: '110%',
                 top: '-5%', left: '-10%',
-                background: 'radial-gradient(ellipse 55% 50% at 45% 55%, rgba(252,122,30,0.25) 0%, transparent 70%)',
+                background: 'radial-gradient(ellipse 55% 50% at 45% 55%, rgba(227,231,211,0.25) 0%, transparent 70%)',
                 filter: 'blur(50px)',
               }}
               aria-hidden="true"

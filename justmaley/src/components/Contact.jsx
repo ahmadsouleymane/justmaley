@@ -74,13 +74,13 @@ export default function Contact() {
   const projects = lang === 'fr' ? PROJECT_FR : PROJECT_EN
 
   return (
-    <section id="contact" className="relative py-28 md:py-40 px-6 md:px-10 bg-green-dark overflow-hidden">
+    <section id="contact" className="relative py-28 md:py-40 px-6 md:px-10 bg-black-deep overflow-hidden">
       <div
         className="absolute pointer-events-none"
         style={{
           width: '1100px', height: '1100px',
           bottom: '-400px', right: '-300px',
-          background: 'radial-gradient(circle, rgba(252,122,30,0.18) 0%, transparent 60%)',
+          background: 'radial-gradient(circle, rgba(227,231,211,0.18) 0%, transparent 60%)',
         }}
         aria-hidden="true"
       />
@@ -287,7 +287,7 @@ export default function Contact() {
                   type="submit"
                   disabled={status === 'sending'}
                   className="w-full bg-orange text-black-deep py-4 rounded-full font-bold tracking-wide hover:bg-orange-dark transition-colors text-sm md:text-base disabled:opacity-60"
-                  style={{ boxShadow: '0 16px 36px -10px rgba(252,122,30,0.55)' }}
+                  style={{ boxShadow: '0 16px 36px -10px rgba(227,231,211,0.55)' }}
                 >
                   {status === 'sending' ? t('contact.form.sending') : t('contact.form.send')}
                 </button>

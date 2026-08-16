@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --color-orange: #FC7A1E;
-  --color-orange-dark: #d9651a;
-  --color-green-dark: #172815;
+  /* Direction artistique yin & yang : plus d'orange. L'ancien accent "orange"
+     devient offwhite pour le monde noir ; le monde blanc utilise le noir. */
+  --color-orange: #E3E7D3;
+  --color-orange-dark: #c9cdbb;
+  --color-green-dark: #0A0A0A;
   --color-offwhite: #E3E7D3;
   --color-black-deep: #0A0A0A;
   --font-cool: 'Sora', system-ui, sans-serif;
@@ -29,7 +31,7 @@ h1, h2, h3 {
 }
 
 ::selection {
-  background-color: #FC7A1E;
+  background-color: #E3E7D3;
   color: #0A0A0A;
 }
 
@@ -42,7 +44,7 @@ h1, h2, h3 {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #FC7A1E;
+  background: #555;
   border-radius: 3px;
 }
 

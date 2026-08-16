@@ -10,7 +10,7 @@ export default function About() {
     { l: t('about.fact4.l'), v: t('about.fact4.v') },
   ]
   return (
-    <section id="about" className="relative py-24 md:py-32 px-6 md:px-10 bg-green-dark overflow-hidden">
+    <section id="about" className="relative py-24 md:py-32 px-6 md:px-10 bg-black-deep overflow-hidden">
       <div className="mx-auto" style={{ maxWidth: '1080px' }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -61,7 +61,7 @@ export default function About() {
                 style={{
                   width: '130%', height: '110%',
                   top: '-5%', left: '-15%',
-                  background: 'radial-gradient(ellipse 55% 50% at 50% 55%, rgba(252,122,30,0.22) 0%, transparent 70%)',
+                  background: 'radial-gradient(ellipse 55% 50% at 50% 55%, rgba(227,231,211,0.22) 0%, transparent 70%)',
                   filter: 'blur(55px)',
                 }}
                 aria-hidden="true"

@@ -22,7 +22,7 @@ export default function Loader() {
         />
 
         {/* Barre de progression */}
-        <div className="mt-8 overflow-hidden rounded-full" style={{ width: '160px', height: '3px', backgroundColor: 'rgba(252,122,30,0.1)' }}>
+        <div className="mt-8 overflow-hidden rounded-full" style={{ width: '160px', height: '3px', backgroundColor: 'rgba(227,231,211,0.1)' }}>
           <motion.div
             initial={{ x: '-100%' }}
             animate={{ x: '0%' }}

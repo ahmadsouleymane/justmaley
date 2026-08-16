@@ -9,10 +9,14 @@ const Services = lazy(() => import('../components/Services'))
 const Contact = lazy(() => import('../components/Contact'))
 const Footer = lazy(() => import('../components/Footer'))
 
-// Monde Développeur : réutilise les sections existantes (web, mobile, IA, SaaS).
+// Monde Développeur (yin, noir) : réutilise les sections existantes. On neutralise
+// l'accent orange en offwhite via un override de la variable Tailwind, pour un
+// rendu noir & blanc "terminal", cohérent avec le concept yin & yang.
+const DARK_THEME = { '--color-orange': '#E3E7D3', '--color-orange-dark': '#c9cdbb' }
+
 export default function DevWorld() {
   return (
-    <>
+    <div style={DARK_THEME} className="bg-black-deep">
       <BackToPortal />
       <Navbar />
       <main>
@@ -21,12 +25,12 @@ export default function DevWorld() {
           <Work />
           <About />
           <Services />
-          <Contact />
+          <Contact theme="dark" />
         </Suspense>
       </main>
       <Suspense fallback={null}>
-        <Footer />
+        <Footer theme="dark" />
       </Suspense>
-    </>
+    </div>
   )
 }

@@ -128,7 +128,7 @@ export default function Work() {
               <div
                 className="absolute inset-0 pointer-events-none opacity-40"
                 style={{
-                  backgroundImage: 'radial-gradient(circle, rgba(252,122,30,0.25) 1px, transparent 1px)',
+                  backgroundImage: 'radial-gradient(circle, rgba(227,231,211,0.25) 1px, transparent 1px)',
                   backgroundSize: '22px 22px',
                   maskImage: 'radial-gradient(ellipse at 50% 50%, black 40%, transparent 85%)',
                 }}
@@ -139,7 +139,7 @@ export default function Work() {
                 className="absolute pointer-events-none"
                 style={{
                   inset: 0,
-                  background: 'radial-gradient(circle at 60% 40%, rgba(252,122,30,0.35) 0%, transparent 60%)',
+                  background: 'radial-gradient(circle at 60% 40%, rgba(227,231,211,0.35) 0%, transparent 60%)',
                 }}
                 aria-hidden="true"
               />
@@ -147,7 +147,7 @@ export default function Work() {
               {/* Chassis browser */}
               <div
                 className="relative z-10 rounded-xl overflow-hidden border border-offwhite/15 bg-black-deep mx-auto w-full max-w-lg"
-                style={{ boxShadow: '0 40px 80px -20px rgba(0,0,0,0.55), 0 0 0 1px rgba(252,122,30,0.1) inset' }}
+                style={{ boxShadow: '0 40px 80px -20px rgba(0,0,0,0.55), 0 0 0 1px rgba(227,231,211,0.1) inset' }}
               >
                 <div className="flex items-center gap-2 px-3 py-2 border-b border-offwhite/10 bg-black-deep/95">
                   <div className="flex gap-1.5">

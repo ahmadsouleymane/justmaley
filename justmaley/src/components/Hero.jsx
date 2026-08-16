@@ -62,7 +62,7 @@ export default function Hero() {
         style={{
           width: '1600px', height: '1600px',
           top: '-500px', right: '-300px',
-          background: 'radial-gradient(circle, rgba(252,122,30,0.30) 0%, rgba(252,122,30,0.10) 30%, transparent 60%)',
+          background: 'radial-gradient(circle, rgba(227,231,211,0.30) 0%, rgba(227,231,211,0.10) 30%, transparent 60%)',
           filter: 'blur(20px)',
         }}
         aria-hidden="true"
@@ -73,7 +73,7 @@ export default function Hero() {
         style={{
           width: '900px', height: '900px',
           bottom: '-300px', left: '-200px',
-          background: 'radial-gradient(circle, rgba(252,122,30,0.12) 0%, transparent 60%)',
+          background: 'radial-gradient(circle, rgba(227,231,211,0.12) 0%, transparent 60%)',
           filter: 'blur(40px)',
         }}
         aria-hidden="true"
@@ -109,7 +109,7 @@ export default function Hero() {
         style={{
           top: '38%',
           height: '1px',
-          background: 'linear-gradient(90deg, transparent, rgba(252,122,30,0.4), transparent)',
+          background: 'linear-gradient(90deg, transparent, rgba(227,231,211,0.4), transparent)',
         }}
         aria-hidden="true"
       />
@@ -193,7 +193,7 @@ export default function Hero() {
               <a
                 href="#contact"
                 className="group relative inline-flex items-center gap-3 bg-orange text-black-deep px-7 py-4 rounded-full font-bold tracking-wide hover:bg-orange-dark transition-all text-sm md:text-base"
-                style={{ boxShadow: '0 20px 50px -12px rgba(252,122,30,0.65)' }}
+                style={{ boxShadow: '0 20px 50px -12px rgba(227,231,211,0.65)' }}
               >
                 {t('hero.cta1')}
                 <svg className="group-hover:translate-x-1 transition-transform" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round">
@@ -217,19 +217,19 @@ export default function Hero() {
               className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 text-offwhite/55 text-xs md:text-[13px]"
             >
               <span className="inline-flex items-center gap-1.5">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FC7A1E" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E3E7D3" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
                 {t('hero.r1')}
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FC7A1E" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E3E7D3" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
                 {t('hero.r2')}
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FC7A1E" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E3E7D3" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
                 {t('hero.r3')}
@@ -252,7 +252,7 @@ export default function Hero() {
               style={{
                 width: '140%', height: '110%',
                 top: '-5%', left: '-20%',
-                background: 'radial-gradient(ellipse 55% 50% at 50% 55%, rgba(252,122,30,0.30) 0%, transparent 70%)',
+                background: 'radial-gradient(ellipse 55% 50% at 50% 55%, rgba(227,231,211,0.30) 0%, transparent 70%)',
                 filter: 'blur(60px)',
               }}
               aria-hidden="true"
