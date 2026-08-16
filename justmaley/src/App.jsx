@@ -1,40 +1,35 @@
-import { useState, useEffect, lazy, Suspense } from 'react'
+import { useState, useEffect } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
 import Loader from './components/Loader'
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-
-const Work = lazy(() => import('./components/Portfolio'))
-const About = lazy(() => import('./components/About'))
-const Services = lazy(() => import('./components/Services'))
-const Contact = lazy(() => import('./components/Contact'))
-const Footer = lazy(() => import('./components/Footer'))
+import Portal from './pages/Portal'
+import DevWorld from './worlds/DevWorld'
+import CreatifWorld from './worlds/CreatifWorld'
 
 function App() {
   const [loading, setLoading] = useState(true)
+  const { pathname } = useLocation()
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1400)
+    const timer = setTimeout(() => setLoading(false), 1200)
     return () => clearTimeout(timer)
   }, [])
+
+  // Remonte en haut à chaque changement de monde.
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
 
   if (loading) return <Loader />
 
   return (
     <>
-      <Navbar />
-      <main>
-        <Hero />
-        <Suspense fallback={null}>
-          <Work />
-          <About />
-          <Services />
-          <Contact />
-        </Suspense>
-      </main>
-      <Suspense fallback={null}>
-        <Footer />
-      </Suspense>
+      <Routes>
+        <Route path="/" element={<Portal />} />
+        <Route path="/dev" element={<DevWorld />} />
+        <Route path="/creatif" element={<CreatifWorld />} />
+        <Route path="*" element={<Portal />} />
+      </Routes>
       <Analytics />
     </>
   )
