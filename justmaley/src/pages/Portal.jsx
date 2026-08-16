@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { useLocale } from '../i18n.jsx'
 
-// Portail "Deux mondes" : l'écran d'entrée se sépare en deux univers, Créatif et
-// Développeur. On survole pour agrandir un côté, on clique pour y entrer. C'est
-// la traduction directe du double profil d'Ahmad : créateur de contenu et
-// développeur web & mobile.
+// Portail "Deux mondes" — concept yin & yang.
+// Blanc = Créatif (pureté, design, élégance). Noir = Développeur (terminal, code).
+// On survole pour agrandir un côté, on clique pour y entrer. Le nom central
+// utilise mix-blend-difference : il s'inverse tout seul selon le fond (noir sur
+// blanc, blanc sur noir), comme le point de chaque moitié du taijitu.
 
 const STR = {
   fr: {
@@ -38,172 +39,192 @@ export default function Portal() {
   const rootRef = useRef(null)
   const creaRef = useRef(null)
   const devRef = useRef(null)
-  const nameRef = useRef(null)
-  const [hover, setHover] = useState(null) // 'crea' | 'dev' | null
+  const headRef = useRef(null)
+  const [hover, setHover] = useState(null)
   const [leaving, setLeaving] = useState(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.set([creaRef.current, devRef.current], { opacity: 0 })
-      gsap.set(creaRef.current, { xPercent: -8 })
-      gsap.set(devRef.current, { xPercent: 8 })
+      gsap.set(creaRef.current, { yPercent: 6 })
+      gsap.set(devRef.current, { yPercent: 6 })
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-      tl.to(creaRef.current, { opacity: 1, xPercent: 0, duration: 0.9 })
-        .to(devRef.current, { opacity: 1, xPercent: 0, duration: 0.9 }, '<')
-        .from(nameRef.current, { opacity: 0, scale: 0.9, duration: 0.8 }, '-=0.4')
+      tl.to(creaRef.current, { opacity: 1, yPercent: 0, duration: 0.9 })
+        .to(devRef.current, { opacity: 1, yPercent: 0, duration: 0.9 }, '<0.12')
+        .from(headRef.current?.children || [], { opacity: 0, y: -14, duration: 0.7, stagger: 0.12 }, '-=0.5')
     }, rootRef)
     return () => ctx.revert()
   }, [])
 
-  // Transition de sortie puis navigation vers le monde choisi.
   const enter = (world) => {
     if (leaving) return
     setLeaving(world)
-    const target = world === 'crea' ? devRef.current : creaRef.current
+    const other = world === 'crea' ? devRef.current : creaRef.current
     const chosen = world === 'crea' ? creaRef.current : devRef.current
     gsap
       .timeline({ onComplete: () => navigate(world === 'crea' ? '/creatif' : '/dev') })
-      .to(target, { opacity: 0, duration: 0.4, ease: 'power2.in' })
-      .to(chosen, { flexGrow: 40, duration: 0.6, ease: 'power3.inOut' }, '<')
+      .to(headRef.current, { opacity: 0, duration: 0.3 }, 0)
+      .to(other, { opacity: 0, duration: 0.4, ease: 'power2.in' }, 0)
+      .to(chosen, { flexGrow: 40, duration: 0.6, ease: 'power3.inOut' }, 0)
   }
 
-  const grow = (side) => (hover === side ? 62 : hover ? 38 : 50)
+  const grow = (side) => (hover === side ? 60 : hover ? 40 : 50)
 
   return (
-    <div
-      ref={rootRef}
-      className="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-black-deep select-none"
-    >
-      {/* ---------- CÔTÉ CRÉATIF ---------- */}
-      <button
-        ref={creaRef}
-        type="button"
-        onMouseEnter={() => setHover('crea')}
-        onMouseLeave={() => setHover(null)}
+    <div ref={rootRef} className="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-black-deep select-none">
+      {/* ---------- CÔTÉ CRÉATIF (blanc) ---------- */}
+      <Panel
+        panelRef={creaRef}
+        onHover={() => setHover('crea')}
+        onLeave={() => setHover(null)}
         onClick={() => enter('crea')}
-        style={{ flexGrow: grow('crea'), flexBasis: 0, transition: 'flex-grow 0.6s cubic-bezier(0.16,1,0.3,1)' }}
-        className="group relative min-h-0 basis-0 overflow-hidden text-left"
-        aria-label={s.crea}
-      >
-        {/* fond chaud */}
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #1a0d05 0%, #0A0A0A 60%)' }} />
-        <div
-          className="absolute pointer-events-none transition-opacity duration-500"
-          style={{
-            width: '1200px', height: '1200px', top: '-300px', left: '-200px',
-            background: 'radial-gradient(circle, rgba(252,122,30,0.38) 0%, transparent 60%)',
-            filter: 'blur(30px)', opacity: hover === 'crea' ? 1 : 0.55,
-          }}
-        />
-        <div
-          className="absolute inset-0 pointer-events-none opacity-[0.06] mix-blend-overlay"
-          style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27120%27 height=%27120%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.8%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E")' }}
-        />
-        <PanelContent
-          index="01"
-          title={s.crea}
-          sub={s.creaSub}
-          line={s.creaLine}
-          enter={s.enter}
-          active={hover === 'crea'}
-          accent="#FC7A1E"
-        />
-      </button>
+        grow={grow('crea')}
+        active={hover === 'crea'}
+        dimmed={hover === 'dev'}
+        index="01"
+        title={s.crea}
+        sub={s.creaSub}
+        line={s.creaLine}
+        enterLabel={s.enter}
+        variant="crea"
+      />
 
-      {/* ---------- CÔTÉ DÉVELOPPEUR ---------- */}
-      <button
-        ref={devRef}
-        type="button"
-        onMouseEnter={() => setHover('dev')}
-        onMouseLeave={() => setHover(null)}
+      {/* ---------- CÔTÉ DÉVELOPPEUR (noir) ---------- */}
+      <Panel
+        panelRef={devRef}
+        onHover={() => setHover('dev')}
+        onLeave={() => setHover(null)}
         onClick={() => enter('dev')}
-        style={{ flexGrow: grow('dev'), flexBasis: 0, transition: 'flex-grow 0.6s cubic-bezier(0.16,1,0.3,1)' }}
-        className="group relative min-h-0 basis-0 overflow-hidden text-left"
-        aria-label={s.dev}
-      >
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #0A0A0A 0%, #0d1512 100%)' }} />
-        {/* grille blueprint */}
-        <div
-          className="absolute inset-0 pointer-events-none transition-opacity duration-500"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(227,231,211,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(227,231,211,0.05) 1px, transparent 1px)',
-            backgroundSize: '48px 48px',
-            maskImage: 'radial-gradient(ellipse at 60% 40%, black 20%, transparent 75%)',
-            opacity: hover === 'dev' ? 1 : 0.6,
-          }}
-        />
-        <div
-          className="absolute pointer-events-none transition-opacity duration-500"
-          style={{
-            width: '1000px', height: '1000px', bottom: '-300px', right: '-200px',
-            background: 'radial-gradient(circle, rgba(23,40,21,0.9) 0%, transparent 60%)',
-            opacity: hover === 'dev' ? 1 : 0.5,
-          }}
-        />
-        {/* ligne de code discrète */}
-        <div className="absolute top-1/3 right-8 hidden lg:block pointer-events-none font-mono text-[11px] text-offwhite/20 leading-relaxed text-right">
-          <div>const maley = () =&gt; {'{'}</div>
-          <div>&nbsp;&nbsp;ship(idea)</div>
-          <div>{'}'}</div>
-        </div>
-        <PanelContent
-          index="02"
-          title={s.dev}
-          sub={s.devSub}
-          line={s.devLine}
-          enter={s.enter}
-          active={hover === 'dev'}
-          accent="#E3E7D3"
-        />
-      </button>
+        grow={grow('dev')}
+        active={hover === 'dev'}
+        dimmed={hover === 'crea'}
+        index="02"
+        title={s.dev}
+        sub={s.devSub}
+        line={s.devLine}
+        enterLabel={s.enter}
+        variant="dev"
+      />
 
-      {/* ---------- COUTURE CENTRALE : NOM ---------- */}
+      {/* ---------- NOM (mix-blend : s'inverse selon le fond) ---------- */}
       <div
-        ref={nameRef}
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none text-center px-4"
+        ref={headRef}
+        className="absolute top-0 left-0 right-0 z-30 pointer-events-none flex flex-col items-center pt-7 md:pt-9 px-4"
+        style={{ mixBlendMode: 'difference' }}
       >
         <div
-          className="text-offwhite font-bold leading-none tracking-tight"
-          style={{ fontFamily: 'var(--font-cool)', fontSize: 'clamp(1.6rem, 4.5vw, 3.2rem)', textShadow: '0 4px 30px rgba(0,0,0,0.8)' }}
+          className="font-bold leading-none tracking-tight text-center text-white"
+          style={{ fontFamily: 'var(--font-cool)', fontSize: 'clamp(1.15rem, 2.6vw, 1.9rem)' }}
         >
           AHMAD SOULEYMANE
         </div>
-        <div className="mt-3 inline-flex items-center gap-2 text-offwhite/60 text-[11px] md:text-xs uppercase tracking-[0.25em]">
-          <span className="w-6 h-px bg-orange/60" />
+        <div className="mt-2.5 inline-flex items-center gap-2 text-white/90 text-[10px] md:text-[11px] uppercase tracking-[0.28em]">
+          <span className="w-5 h-px bg-white/70" />
           {s.hint}
-          <span className="w-6 h-px bg-orange/60" />
+          <span className="w-5 h-px bg-white/70" />
         </div>
       </div>
     </div>
   )
 }
 
-function PanelContent({ index, title, sub, line, enter, active, accent }) {
+function Panel({ panelRef, onHover, onLeave, onClick, grow, active, dimmed, index, title, sub, line, enterLabel, variant }) {
+  const isCrea = variant === 'crea'
+  // Couleurs inversées d'un monde à l'autre (yin & yang).
+  const fg = isCrea ? '#0A0A0A' : '#E3E7D3'
+  const muted = isCrea ? 'rgba(10,10,10,0.60)' : 'rgba(227,231,211,0.60)'
+  const hair = isCrea ? 'rgba(10,10,10,0.22)' : 'rgba(227,231,211,0.22)'
+
   return (
-    <div className="relative z-10 h-full w-full flex flex-col justify-end p-8 md:p-12">
-      <div className="flex items-center gap-2.5 text-sm mb-4" style={{ color: accent }}>
-        <span className="font-mono opacity-70">{index}</span>
-        <span className="w-8 h-px" style={{ background: `${accent}80` }} />
-        <span className="lowercase tracking-wide opacity-80">{sub}</span>
-      </div>
-      <h2
-        className="text-offwhite tracking-tight"
-        style={{ fontFamily: 'var(--font-cool)', fontSize: 'clamp(2.4rem, 6vw, 5.5rem)', lineHeight: 0.95, fontWeight: 800 }}
-      >
-        {title}
-      </h2>
-      <p className="mt-4 text-offwhite/60 text-sm md:text-base max-w-sm leading-relaxed">{line}</p>
+    <button
+      ref={panelRef}
+      type="button"
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+      onClick={onClick}
+      style={{ flexGrow: grow, flexBasis: 0, transition: 'flex-grow 0.6s cubic-bezier(0.16,1,0.3,1)' }}
+      className="group relative min-h-0 basis-0 overflow-hidden text-left"
+      aria-label={title}
+    >
+      {/* fond */}
       <div
-        className="mt-7 inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300"
-        style={{ color: accent, transform: active ? 'translateX(6px)' : 'none', opacity: active ? 1 : 0.75 }}
-      >
-        {enter}
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
-          <line x1="5" y1="12" x2="19" y2="12" />
-          <polyline points="12 5 19 12 12 19" />
-        </svg>
+        className="absolute inset-0"
+        style={{ background: isCrea ? 'linear-gradient(150deg, #ffffff 0%, #efeee8 100%)' : 'linear-gradient(150deg, #0d0d0d 0%, #060606 100%)' }}
+      />
+      {/* texture propre à chaque monde */}
+      {isCrea ? (
+        // grain fin, très léger — pureté, papier
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.04]"
+          style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27120%27 height=%27120%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.8%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E")' }}
+        />
+      ) : (
+        // grille blueprint blanche
+        <div
+          className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${active ? 'opacity-100' : 'opacity-60'}`}
+          style={{
+            backgroundImage: 'linear-gradient(rgba(227,231,211,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(227,231,211,0.05) 1px, transparent 1px)',
+            backgroundSize: '48px 48px',
+            maskImage: 'radial-gradient(ellipse at 60% 45%, black 20%, transparent 75%)',
+          }}
+        />
+      )}
+
+      {/* "œil" du taijitu : un cercle de la couleur opposée, qui flotte */}
+      <span
+        className="absolute rounded-full float-y"
+        style={{
+          width: '14px', height: '14px',
+          top: '22%', [isCrea ? 'right' : 'left']: '16%',
+          background: isCrea ? '#0A0A0A' : '#E3E7D3',
+          opacity: active ? 0.9 : 0.55,
+          transition: 'opacity 0.4s',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* curseur code, côté dev */}
+      {!isCrea && (
+        <div className="absolute top-1/3 right-6 md:right-10 hidden lg:block pointer-events-none font-mono text-[11px] text-offwhite/25 leading-relaxed text-right">
+          <div>const maley = () =&gt; {'{'}</div>
+          <div>&nbsp;&nbsp;ship(idea)<span className="blink">_</span></div>
+          <div>{'}'}</div>
+        </div>
+      )}
+
+      {/* contenu ancré en bas */}
+      <div className="relative z-10 h-full w-full flex flex-col justify-end p-8 md:p-12" style={{ opacity: dimmed ? 0.5 : 1, transition: 'opacity 0.5s' }}>
+        <div className="flex items-center gap-2.5 text-sm mb-4" style={{ color: fg }}>
+          <span className="font-mono opacity-60">{index}</span>
+          <span className="w-8 h-px" style={{ background: hair }} />
+          <span className="lowercase tracking-wide" style={{ color: muted }}>{sub}</span>
+        </div>
+        <h2
+          style={{
+            color: fg,
+            fontFamily: 'var(--font-cool)',
+            fontSize: 'clamp(2.4rem, 6vw, 5.5rem)',
+            lineHeight: 0.95,
+            fontWeight: 800,
+            letterSpacing: '-0.02em',
+            transform: active ? 'translateY(-4px)' : 'none',
+            transition: 'transform 0.4s',
+          }}
+        >
+          {title}
+        </h2>
+        <p className="mt-4 text-sm md:text-base max-w-sm leading-relaxed" style={{ color: muted }}>{line}</p>
+        <div
+          className="mt-7 inline-flex items-center gap-2 text-sm font-semibold"
+          style={{ color: fg, transform: active ? 'translateX(6px)' : 'none', opacity: active ? 1 : 0.8, transition: 'all 0.3s' }}
+        >
+          {enterLabel}
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </div>
       </div>
-    </div>
+    </button>
   )
 }
