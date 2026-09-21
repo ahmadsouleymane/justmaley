@@ -5,56 +5,203 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0A0A0A" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="canonical" href="https://justmaley.tech/" />
 
-    <!-- ─────────── SEO principal ─────────── -->
-    <title>JustMaley — Studio digital · Identité, visibilité, outils</title>
-    <meta
-      name="description"
-      content="JustMaley est un studio digital à Niamey. Brand pour ton identité, Grow pour ta visibilité, Build pour tes sites et tes outils. Un seul interlocuteur, de l'image au système."
-    />
-    <meta
-      name="keywords"
-      content="studio digital Niamey, agence communication Niger, création logo Niamey, identité visuelle Niger, charte graphique, community management Niamey, montage vidéo Niger, création site web Niamey, site vitrine Niger, e-commerce Niger, application web sur mesure, automatisation IA, JustMaley, Ahmad Souleymane"
-    />
+    <!-- ─────────── Balises identiques sur toutes les pages ─────────── -->
     <meta name="author" content="Ahmad Souleymane" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="googlebot" content="index, follow" />
-    <meta name="language" content="French" />
-    <meta name="geo.region" content="NE" />
+    <meta name="geo.region" content="NE-NI" />
     <meta name="geo.placename" content="Niamey, Niger" />
-    <meta name="rating" content="general" />
+    <meta name="geo.position" content="13.5116;2.1254" />
+    <meta name="ICBM" content="13.5116, 2.1254" />
 
-    <!-- ─────────── hreflang (multilingue auto FR/EN) ─────────── -->
-    <link rel="alternate" hreflang="fr" href="https://justmaley.tech/" />
-    <link rel="alternate" hreflang="en" href="https://justmaley.tech/" />
-    <link rel="alternate" hreflang="x-default" href="https://justmaley.tech/" />
+    <!-- ─────────── Métadonnées par page ───────────
+         Tout ce qui se trouve entre ces deux marqueurs est réécrit par
+         scripts/prerender-seo.mjs au moment du build, une version par route.
+         La source de vérité est src/data/seo.js.
 
-    <!-- ─────────── Open Graph (Facebook, LinkedIn, WhatsApp) ─────────── -->
+         Ce bloc-ci est celui de la page d'accueil. Il sert de repli si le
+         site est déployé sans lancer le prérendu, et de contenu au serveur
+         de développement. -->
+    <!--seo:start-->
+    <title>JustMaley — Studio digital à Niamey | Brand, Grow, Build</title>
+    <meta name="description" content="Studio digital à Niamey. Brand pour votre identité visuelle, Grow pour votre visibilité en ligne, Build pour vos sites web et applications. Un seul interlocuteur, de l'image au système." />
+    <meta name="keywords" content="studio digital Niamey, agence digitale Niger, agence communication Niamey, création site web Niamey, identité visuelle Niger, community management Niamey, JustMaley" />
+    <link rel="canonical" href="https://justmaley.tech/" />
+
+    <!-- Open Graph — lu par WhatsApp, LinkedIn, Facebook. Sans prérendu,
+         tous les liens partagés afficheraient le même aperçu. -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="JustMaley" />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:locale:alternate" content="en_US" />
     <meta property="og:url" content="https://justmaley.tech/" />
     <meta property="og:title" content="JustMaley — Studio digital à Niamey" />
-    <meta
-      property="og:description"
-      content="Brand pour ton identité, Grow pour ta visibilité, Build pour tes outils. Un studio, trois offres, un seul interlocuteur."
-    />
-    <meta property="og:image" content="https://justmaley.tech/profile%20face.png" />
-    <meta property="og:image:alt" content="JustMaley, studio digital à Niamey" />
+    <meta property="og:description" content="Brand pour votre identité, Grow pour votre visibilité, Build pour vos outils. Un studio, trois offres, un seul interlocuteur." />
+    <meta property="og:image" content="https://justmaley.tech/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="JustMaley — studio digital à Niamey" />
 
-    <!-- ─────────── Twitter / X ─────────── -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="JustMaley — Studio digital à Niamey" />
-    <meta
-      name="twitter:description"
-      content="Identité, visibilité, outils. Un studio, trois offres, un seul interlocuteur."
-    />
-    <meta name="twitter:image" content="https://justmaley.tech/profile%20face.png" />
-    <meta name="twitter:image:alt" content="JustMaley" />
+    <meta name="twitter:description" content="Brand pour votre identité, Grow pour votre visibilité, Build pour vos outils. Un studio, trois offres, un seul interlocuteur." />
+    <meta name="twitter:image" content="https://justmaley.tech/og.png" />
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://justmaley.tech/#studio",
+      "name": "JustMaley",
+      "legalName": "JustMaley — Studio digital",
+      "url": "https://justmaley.tech/",
+      "image": "https://justmaley.tech/og.png",
+      "logo": "https://justmaley.tech/logo-bk.svg",
+      "telephone": "+22778126481",
+      "email": "souleymane@justmaley.tech",
+      "priceRange": "XOF",
+      "currenciesAccepted": "XOF",
+      "description": "Studio digital à Niamey : identité visuelle, production de contenu et de vidéo, création de sites web, d'applications et d'automatisations. Trois offres — Brand, Grow, Build.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Niamey",
+        "addressCountry": "NE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 13.5116,
+        "longitude": 2.1254
+      },
+      "areaServed": [
+        {
+          "@type": "Country",
+          "name": "Niger"
+        },
+        {
+          "@type": "Country",
+          "name": "Burkina Faso"
+        },
+        {
+          "@type": "Country",
+          "name": "Mali"
+        },
+        {
+          "@type": "Country",
+          "name": "Bénin"
+        },
+        {
+          "@type": "Country",
+          "name": "Togo"
+        },
+        {
+          "@type": "Country",
+          "name": "Sénégal"
+        },
+        {
+          "@type": "Country",
+          "name": "Côte d'Ivoire"
+        }
+      ],
+      "founder": {
+        "@id": "https://justmaley.tech/#ahmad"
+      },
+      "knowsAbout": [
+        "Identité visuelle",
+        "Création de logo",
+        "Charte graphique",
+        "Community management",
+        "Montage vidéo",
+        "Motion design",
+        "Création de site web",
+        "Boutique en ligne",
+        "Application web sur mesure",
+        "Automatisation",
+        "Intelligence artificielle"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Offres JustMaley",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "Brand",
+            "url": "https://justmaley.tech/brand",
+            "description": "Logo, charte, supports. On pose une image que tes clients reconnaissent en une seconde — et qui tient aussi bien sur un panneau que sur une story."
+          },
+          {
+            "@type": "Offer",
+            "name": "Grow",
+            "url": "https://justmaley.tech/grow",
+            "description": "Contenu, vidéo, réseaux. On produit régulièrement, on soigne la direction artistique, et on te rend visible là où tes clients passent vraiment leur temps."
+          },
+          {
+            "@type": "Offer",
+            "name": "Build",
+            "url": "https://justmaley.tech/build",
+            "description": "Site, boutique, application, automatisation. On construit ce qui prend le relais quand tu dors — et qui t'appartient, code source compris."
+          }
+        ]
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "08:00",
+          "closes": "18:00"
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://justmaley.tech/#website",
+      "url": "https://justmaley.tech/",
+      "name": "JustMaley",
+      "description": "Studio digital à Niamey : identité, visibilité, outils.",
+      "inLanguage": "fr-NE",
+      "publisher": {
+        "@id": "https://justmaley.tech/#studio"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://justmaley.tech/#ahmad",
+      "name": "Ahmad Souleymane",
+      "givenName": "Ahmad",
+      "familyName": "Souleymane",
+      "jobTitle": "Fondateur, JustMaley",
+      "description": "Fondateur de JustMaley. Formation d'image et de développement web, réunies dans un même studio à Niamey.",
+      "url": "https://justmaley.tech/apropos",
+      "email": "mailto:souleymane@justmaley.tech",
+      "worksFor": {
+        "@id": "https://justmaley.tech/#studio"
+      },
+      "knowsAbout": [
+        "Identité visuelle",
+        "Premiere Pro",
+        "After Effects",
+        "Figma",
+        "React",
+        "Node.js",
+        "PostgreSQL",
+        "Automatisation"
+      ],
+      "sameAs": [
+        "https://linkedin.com/in/ahmadsouleymane"
+      ]
+    }
+  ]
+}
+    </script>
+    <!--seo:end-->
 
     <!-- ─────────── Performance ─────────── -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -63,97 +210,6 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
     />
-
-    <!-- ─────────── Schema.org : Studio + Fondateur + Offres ─────────── -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "ProfessionalService",
-          "@id": "https://justmaley.tech/#studio",
-          "name": "JustMaley",
-          "alternateName": "JustMaley Studio",
-          "url": "https://justmaley.tech/",
-          "image": "https://justmaley.tech/profile%20face.png",
-          "telephone": "+227-78126481",
-          "email": "souleymane@justmaley.tech",
-          "priceRange": "FCFA",
-          "description": "Studio digital à Niamey : identité visuelle, production de contenu et de vidéo, création de sites, d'applications et d'automatisations.",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Niamey",
-            "addressCountry": "NE"
-          },
-          "areaServed": [
-            { "@type": "Country", "name": "Niger" },
-            { "@type": "Country", "name": "Burkina Faso" },
-            { "@type": "Country", "name": "Mali" },
-            { "@type": "Country", "name": "Bénin" },
-            { "@type": "Country", "name": "Togo" },
-            { "@type": "Country", "name": "Sénégal" },
-            { "@type": "Country", "name": "Côte d'Ivoire" }
-          ],
-          "founder": { "@id": "https://justmaley.tech/#ahmad" },
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Offres JustMaley",
-            "itemListElement": [
-              {
-                "@type": "Offer",
-                "name": "Brand — identité",
-                "url": "https://justmaley.tech/brand",
-                "description": "Logo, charte graphique, supports de communication et direction artistique. Trois niveaux : Essentiel, Business, Signature."
-              },
-              {
-                "@type": "Offer",
-                "name": "Grow — visibilité",
-                "url": "https://justmaley.tech/grow",
-                "description": "Production de contenu, montage vidéo, motion design et community management. Abonnement mensuel, trois niveaux."
-              },
-              {
-                "@type": "Offer",
-                "name": "Build — système",
-                "url": "https://justmaley.tech/build",
-                "description": "Site vitrine, site business, boutique en ligne, application sur mesure et automatisation avec IA. Facturé au projet, code source remis au client."
-              }
-            ]
-          }
-        },
-        {
-          "@type": "Person",
-          "@id": "https://justmaley.tech/#ahmad",
-          "name": "Ahmad Souleymane",
-          "givenName": "Ahmad",
-          "familyName": "Souleymane",
-          "jobTitle": "Fondateur, JustMaley",
-          "description": "Fondateur de JustMaley. Formation d'image et de développement web, réunies dans un même studio.",
-          "image": "https://justmaley.tech/profile%20face.png",
-          "url": "https://justmaley.tech/apropos",
-          "email": "mailto:souleymane@justmaley.tech",
-          "worksFor": { "@id": "https://justmaley.tech/#studio" },
-          "sameAs": [
-            "https://linkedin.com/in/ahmadsouleymane"
-          ],
-          "knowsAbout": [
-            "Identité visuelle",
-            "Premiere Pro", "After Effects", "Figma",
-            "React", "Node.js", "PostgreSQL",
-            "Intelligence artificielle", "Automatisation"
-          ]
-        },
-        {
-          "@type": "WebSite",
-          "@id": "https://justmaley.tech/#website",
-          "url": "https://justmaley.tech/",
-          "name": "JustMaley",
-          "description": "Studio digital à Niamey : identité, visibilité, outils.",
-          "inLanguage": ["fr-FR", "en-US"],
-          "publisher": { "@id": "https://justmaley.tech/#studio" }
-        }
-      ]
-    }
-    </script>
   </head>
   <body>
     <div id="root"></div>

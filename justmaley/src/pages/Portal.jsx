@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { useLocale } from '../i18n.jsx'
 import { OFFERS, PILLARS } from '../data/offers.js'
+import { SEO_PAGES } from '../data/seo.js'
+import Seo from '../components/Seo.jsx'
 
 // Portail JustMaley — trois piliers, une échelle.
 //
@@ -76,6 +78,7 @@ export default function Portal() {
 
   return (
     <div ref={rootRef} className="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-black-deep select-none">
+      <Seo page={SEO_PAGES.home} />
       {PILLARS.map((slug) => (
         <Panel
           key={slug}

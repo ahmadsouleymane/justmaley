@@ -2,9 +2,12 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useLocale } from '../i18n.jsx'
 import { OFFERS, PILLARS, formatPrice } from '../data/offers.js'
+import { SEO_PAGES } from '../data/seo.js'
+import { faqFor } from '../data/faq.js'
 import { EMAIL, WHATSAPP_URL, LINKEDIN_URL } from '../data/contact.js'
 import StudioNav from '../components/StudioNav.jsx'
 import StudioFooter from '../components/StudioFooter.jsx'
+import Seo from '../components/Seo.jsx'
 
 // Une seule page pour les trois piliers : BRAND, GROW et BUILD partagent la même
 // structure (hero → livrables → niveaux → process → limites → contact) et ne
@@ -18,6 +21,7 @@ import StudioFooter from '../components/StudioFooter.jsx'
 const STR = {
   fr: {
     quote: 'Sur devis',
+    faqTitle: 'Questions fréquentes',
     otherPillars: 'Les deux autres piliers',
     nextStep: 'Ensuite',
     contactTitle: 'On en parle ?',
@@ -28,6 +32,7 @@ const STR = {
   },
   en: {
     quote: 'On quote',
+    faqTitle: 'Frequently asked questions',
     otherPillars: 'The other two pillars',
     nextStep: 'Then',
     contactTitle: "Let's talk?",
@@ -48,6 +53,7 @@ export default function Offer({ slug }) {
 
   return (
     <div style={{ background: offer.bg, color: offer.fg }} className="min-h-screen">
+      <Seo page={SEO_PAGES[slug]} />
       <StudioNav offer={offer} />
 
       <main>
@@ -269,8 +275,49 @@ export default function Offer({ slug }) {
           </ul>
         </Section>
 
+        {/* ---------- QUESTIONS FRÉQUENTES ----------
+            Contenu visible, et source du balisage FAQPage : Google peut
+            afficher ces réponses directement dans les résultats. <details>
+            plutôt qu'un accordéon JavaScript — le texte est dans le DOM même
+            replié, donc lisible par les robots et sans dépendance. */}
+        <Section offer={offer} n="05" title={s.faqTitle}>
+          <div className="grid gap-px" style={{ background: offer.hair, border: `1px solid ${offer.hair}` }}>
+            {faqFor(slug, lang).map((item, i) => (
+              <motion.details
+                key={item.q}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.4, delay: i * 0.04 }}
+                className="group p-6 md:p-8"
+                style={{ background: offer.bg }}
+              >
+                <summary
+                  className="flex items-start justify-between gap-6 cursor-pointer list-none text-base md:text-lg font-bold tracking-tight [&::-webkit-details-marker]:hidden"
+                  style={{ fontFamily: 'var(--font-cool)' }}
+                >
+                  <span>{item.q}</span>
+                  <span
+                    className="shrink-0 mt-1 transition-transform group-open:rotate-45"
+                    aria-hidden="true"
+                    style={{ color: offer.muted }}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+                      <line x1="12" y1="5" x2="12" y2="19" />
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                  </span>
+                </summary>
+                <p className="mt-4 text-sm md:text-base leading-relaxed" style={{ color: offer.muted, maxWidth: '70ch' }}>
+                  {item.a}
+                </p>
+              </motion.details>
+            ))}
+          </div>
+        </Section>
+
         {/* ---------- LES DEUX AUTRES PILIERS ---------- */}
-        <Section offer={offer} n="05" title={s.otherPillars}>
+        <Section offer={offer} n="06" title={s.otherPillars}>
           <div className="grid gap-px sm:grid-cols-2" style={{ background: offer.hair, border: `1px solid ${offer.hair}` }}>
             {others.map((other) => {
               const o = OFFERS[other]

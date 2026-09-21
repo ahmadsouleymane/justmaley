@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion'
 import { useLocale } from '../i18n.jsx'
+import { SEO_PAGES } from '../data/seo.js'
 import { EMAIL, WHATSAPP_URL, LINKEDIN_URL, LOCATION } from '../data/contact.js'
 import StudioNav from '../components/StudioNav.jsx'
 import StudioFooter from '../components/StudioFooter.jsx'
+import Seo from '../components/Seo.jsx'
 
 // La personne derrière le studio.
 //
@@ -68,6 +70,7 @@ export default function Apropos() {
 
   return (
     <div style={{ background: THEME.bg, color: THEME.fg }} className="min-h-screen">
+      <Seo page={SEO_PAGES.apropos} />
       <StudioNav offer={THEME} />
 
       <main>
@@ -114,7 +117,18 @@ export default function Apropos() {
                 style={{ background: 'radial-gradient(ellipse 55% 50% at 50% 55%, rgba(227,231,211,0.14) 0%, transparent 70%)', filter: 'blur(40px)' }}
                 aria-hidden="true"
               />
-              <img src="/profile face.png" alt="Ahmad Souleymane" className="relative block w-full h-auto" />
+              {/* width/height explicites : le navigateur réserve la place avant
+                  le chargement, donc pas de décalage de mise en page (CLS).
+                  Pas de lazy-loading ici, c'est l'image principale de la page. */}
+              <img
+                src="/profile-face.webp"
+                alt="Ahmad Souleymane, fondateur de JustMaley, studio digital à Niamey"
+                width="768"
+                height="1365"
+                fetchPriority="high"
+                decoding="async"
+                className="relative block w-full h-auto"
+              />
             </motion.div>
           </div>
         </section>
