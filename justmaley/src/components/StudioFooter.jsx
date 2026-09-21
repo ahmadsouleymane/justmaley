@@ -12,11 +12,14 @@ export default function StudioFooter({ offer }) {
 
   return (
     <footer style={{ borderTop: `1px solid ${offer.hair}` }}>
+      {/* 4 colonnes seulement à partir de lg : à 768px la colonne contact ne
+          faisait que ~160px et l'e-mail s'y coupait en plein milieu. En dessous,
+          on reste sur 2 colonnes, puis 1. */}
       <div
-        className="mx-auto px-6 md:px-10 py-12 grid gap-10 md:grid-cols-4"
+        className="mx-auto px-6 md:px-10 py-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4"
         style={{ maxWidth: '1280px' }}
       >
-        <div className="md:col-span-2">
+        <div className="sm:col-span-2">
           <img src={offer.logo} alt="JustMaley" width="130" height="22" className="h-5 w-auto mb-4" />
           <p className="text-sm leading-relaxed max-w-xs" style={{ color: offer.muted }}>
             {lang === 'en'
@@ -59,7 +62,9 @@ export default function StudioFooter({ offer }) {
           </div>
           <ul className="space-y-2.5">
             <li>
-              <a href={`mailto:${EMAIL}`} className="text-sm transition-opacity hover:opacity-70" style={{ color: offer.fg }}>
+              {/* break-words : l'adresse est un mot insécable plus long que la
+                  colonne à 768px, et débordait sur 7px toute la page. */}
+              <a href={`mailto:${EMAIL}`} className="text-sm break-words transition-opacity hover:opacity-70" style={{ color: offer.fg }}>
                 {EMAIL}
               </a>
             </li>

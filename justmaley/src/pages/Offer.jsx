@@ -205,12 +205,16 @@ export default function Offer({ slug }) {
                       longueurs différentes. Les listes, elles, suivent la
                       description sans trou. */}
                   <div className="mt-auto pt-7">
+                    {/* Sur une carte inversée le bouton reprend la couleur de
+                        fond du pilier : son texte doit donc être offer.fg, pas
+                        cardFg — sinon fond et texte valent tous deux offer.bg et
+                        le libellé disparaît. */}
                     <a
                       href="#contact"
                       className="flex w-full items-center justify-center rounded-full px-5 py-3 text-sm font-bold transition-opacity hover:opacity-85"
                       style={{
                         background: inverted ? offer.bg : 'transparent',
-                        color: cardFg,
+                        color: inverted ? offer.fg : cardFg,
                         border: `1px solid ${inverted ? 'transparent' : cardHair}`,
                       }}
                     >
