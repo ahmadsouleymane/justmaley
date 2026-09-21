@@ -303,7 +303,10 @@ export default function Offer({ slug }) {
 
         {/* ---------- CONTACT ---------- */}
         <section id="contact" className="px-6 md:px-10 py-24 md:py-32" style={{ borderTop: `1px solid ${offer.hair}` }}>
-          <div className="mx-auto" style={{ maxWidth: '760px' }}>
+          {/* Même largeur de conteneur que les autres sections : sinon le bord
+              gauche du bloc contact sautait de ~160px à 1280px. La largeur de
+              lecture est tenue par le maxWidth des paragraphes, pas du bloc. */}
+          <div className="mx-auto" style={{ maxWidth: '1080px' }}>
             <h2
               className="tracking-tight"
               style={{ fontFamily: 'var(--font-cool)', fontSize: 'clamp(1.9rem, 4.4vw, 3rem)', fontWeight: 800, letterSpacing: '-0.02em' }}
@@ -360,17 +363,22 @@ function Section({ offer, n, title, note, anchor, children }) {
   return (
     <section id={anchor} className="px-6 md:px-10 py-16 md:py-24" style={{ borderTop: `1px solid ${offer.hair}` }}>
       <div className="mx-auto" style={{ maxWidth: '1080px' }}>
-        <div className="flex items-baseline gap-3 mb-3">
+        {/* Numéro et filet sur leur propre ligne, titre en dessous : c'est le
+            motif déjà utilisé par le hero de cette page. Sur une seule ligne,
+            le numéro décalait le titre de 26px par rapport aux cartes situées
+            juste en dessous, et le bord gauche devenait irrégulier. */}
+        <div className="flex items-center gap-3 mb-4">
           <span className="text-xs font-mono" style={{ color: offer.muted }}>{n}</span>
-          <h2
-            className="tracking-tight"
-            style={{ fontFamily: 'var(--font-cool)', fontSize: 'clamp(1.5rem, 3.2vw, 2.3rem)', fontWeight: 700, letterSpacing: '-0.015em' }}
-          >
-            {title}
-          </h2>
+          <span className="w-10 h-px" style={{ background: offer.hair }} />
         </div>
+        <h2
+          className="tracking-tight"
+          style={{ fontFamily: 'var(--font-cool)', fontSize: 'clamp(1.5rem, 3.2vw, 2.3rem)', fontWeight: 700, letterSpacing: '-0.015em' }}
+        >
+          {title}
+        </h2>
         {note && (
-          <p className="text-sm italic mb-10" style={{ color: offer.muted, maxWidth: '60ch' }}>{note}</p>
+          <p className="text-sm italic mt-3 mb-10" style={{ color: offer.muted, maxWidth: '60ch' }}>{note}</p>
         )}
         {!note && <div className="mb-10" />}
         {children}

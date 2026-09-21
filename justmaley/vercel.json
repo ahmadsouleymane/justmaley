@@ -43,6 +43,10 @@
       ]
     }
   ],
+  "redirects": [
+    { "source": "/dev", "destination": "/build", "permanent": true },
+    { "source": "/creatif", "destination": "/brand", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]

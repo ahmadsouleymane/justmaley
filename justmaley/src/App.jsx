@@ -5,8 +5,6 @@ import Loader from './components/Loader'
 import Portal from './pages/Portal'
 import Offer from './pages/Offer'
 import Apropos from './pages/Apropos'
-import DevWorld from './worlds/DevWorld'
-import CreatifWorld from './worlds/CreatifWorld'
 
 // Routage du studio JustMaley.
 //
@@ -16,9 +14,8 @@ import CreatifWorld from './worlds/CreatifWorld'
 //   /build    offre système
 //   /apropos  la personne derrière le studio
 //
-// /creatif et /dev sont les anciens univers. Ils ne sont plus dans le parcours
-// commercial — le portail ne pointe plus vers eux — mais ils restent en ligne
-// et sont accessibles depuis /apropos, sous « Les archives ». Rien n'a été jeté.
+// Les anciens univers /creatif et /dev ont été supprimés, avec leurs composants
+// et leurs images. Le contenu reste récupérable dans l'historique git si besoin.
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -48,8 +45,6 @@ function App() {
         <Route path="/grow" element={<Offer slug="grow" />} />
         <Route path="/build" element={<Offer slug="build" />} />
         <Route path="/apropos" element={<Apropos />} />
-        <Route path="/creatif" element={<CreatifWorld />} />
-        <Route path="/dev" element={<DevWorld />} />
         <Route path="*" element={<Portal />} />
       </Routes>
       <Analytics />

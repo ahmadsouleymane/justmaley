@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
 import { useLocale } from '../i18n.jsx'
 import { EMAIL, WHATSAPP_URL, LINKEDIN_URL, LOCATION } from '../data/contact.js'
 import StudioNav from '../components/StudioNav.jsx'
@@ -11,10 +10,6 @@ import StudioFooter from '../components/StudioFooter.jsx'
 // est le visage qu'on met derrière une offre : le studio vend BRAND / GROW /
 // BUILD, et cette page répond à « c'est qui, en face ? ». C'est un actif de
 // confiance, pas un argument de vente — donc il reste sobre.
-//
-// Les deux anciens univers (créatif / développeur) ne sont pas supprimés : ils
-// sont rangés ici comme archives. Le portail ne les met plus en avant, mais le
-// travail reste accessible.
 
 const THEME = {
   slug: 'apropos',
@@ -45,12 +40,6 @@ const STR = {
       ['Image', 'Premiere Pro, After Effects, Figma'],
       ['Code', 'React, Node.js, PostgreSQL, IA'],
     ],
-    archivesTitle: 'Les archives',
-    archivesSub: "Avant JustMaley, ce site avait deux portes : une créative, une technique. Elles sont toujours ouvertes, mais elles ne sont plus l'entrée.",
-    archives: [
-      ['/creatif', 'Le monde créatif', 'Montage, motion design, identité visuelle, réseaux sociaux.'],
-      ['/dev', 'Le monde développeur', 'Applications web, SaaS, IA. Le travail technique de ces dernières années.'],
-    ],
     ctaTitle: 'On travaille ensemble ?',
     ctaSub: "Dis-moi où en est ton activité. Je te réponds sous 24h.",
   },
@@ -67,12 +56,6 @@ const STR = {
       ['Languages', 'French, English'],
       ['Image', 'Premiere Pro, After Effects, Figma'],
       ['Code', 'React, Node.js, PostgreSQL, AI'],
-    ],
-    archivesTitle: 'The archives',
-    archivesSub: 'Before JustMaley, this site had two doors: one creative, one technical. They are still open, but they are no longer the entrance.',
-    archives: [
-      ['/creatif', 'The creative world', 'Editing, motion design, visual identity, social media.'],
-      ['/dev', 'The developer world', 'Web apps, SaaS, AI. The technical work of recent years.'],
     ],
     ctaTitle: 'Shall we work together?',
     ctaSub: 'Tell me where your business is at. I reply within 24h.',
@@ -161,42 +144,11 @@ export default function Apropos() {
           </div>
         </section>
 
-        {/* ---------- ARCHIVES ---------- */}
-        <section className="px-6 md:px-10 py-16 md:py-24" style={{ borderTop: `1px solid ${THEME.hair}` }}>
-          <div className="mx-auto" style={{ maxWidth: '1080px' }}>
-            <h2 className="tracking-tight mb-3" style={{ fontFamily: 'var(--font-cool)', fontSize: 'clamp(1.5rem, 3.2vw, 2.3rem)', fontWeight: 700 }}>
-              {s.archivesTitle}
-            </h2>
-            <p className="text-sm italic mb-10" style={{ color: THEME.muted, maxWidth: '60ch' }}>{s.archivesSub}</p>
-
-            <div className="grid gap-px sm:grid-cols-2" style={{ background: THEME.hair, border: `1px solid ${THEME.hair}` }}>
-              {s.archives.map(([to, title, desc]) => (
-                <Link
-                  key={to}
-                  to={to}
-                  className="group flex flex-col justify-between gap-8 p-7 md:p-9 transition-opacity hover:opacity-80"
-                  style={{ background: THEME.bg, minHeight: '11rem' }}
-                >
-                  <div className="text-sm font-bold tracking-tight" style={{ fontFamily: 'var(--font-cool)' }}>{title}</div>
-                  <div>
-                    <p className="text-sm leading-snug mb-4" style={{ color: THEME.muted, maxWidth: '34ch' }}>{desc}</p>
-                    <span className="inline-flex items-center gap-2 text-xs font-semibold">
-                      {lang === 'en' ? 'Enter' : 'Entrer'}
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
-                        <line x1="5" y1="12" x2="19" y2="12" />
-                        <polyline points="12 5 19 12 12 19" />
-                      </svg>
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* ---------- CONTACT ---------- */}
         <section id="contact" className="px-6 md:px-10 py-24 md:py-32" style={{ borderTop: `1px solid ${THEME.hair}` }}>
-          <div className="mx-auto" style={{ maxWidth: '760px' }}>
+          {/* Même conteneur que les autres sections, sinon le bord gauche
+              sautait par rapport au reste de la page. */}
+          <div className="mx-auto" style={{ maxWidth: '1080px' }}>
             <h2 className="tracking-tight" style={{ fontFamily: 'var(--font-cool)', fontSize: 'clamp(1.9rem, 4.4vw, 3rem)', fontWeight: 800, letterSpacing: '-0.02em' }}>
               {s.ctaTitle}
             </h2>
