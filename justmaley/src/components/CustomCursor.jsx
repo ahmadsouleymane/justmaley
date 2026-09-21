@@ -10,6 +10,10 @@ export default function CustomCursor() {
   useEffect(() => {
     if (window.innerWidth < 768) return
 
+    // On capture la ref maintenant : au moment où le cleanup s'exécute, elle
+    // peut déjà pointer ailleurs. Elle est de toute façon vidée ici.
+    const listeners = listenersRef.current
+
     const move = (e) => {
       setPos({ x: e.clientX, y: e.clientY })
       if (!visible) setVisible(true)
@@ -50,11 +54,11 @@ export default function CustomCursor() {
       document.removeEventListener('mouseleave', hide)
       document.removeEventListener('mouseenter', show)
       observer.disconnect()
-      listenersRef.current.forEach((el) => {
+      listeners.forEach((el) => {
         el.removeEventListener('mouseenter', over)
         el.removeEventListener('mouseleave', out)
       })
-      listenersRef.current.clear()
+      listeners.clear()
     }
   }, [visible])
 

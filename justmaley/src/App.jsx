@@ -30,8 +30,12 @@ function App() {
   }, [])
 
   // Remonte en haut à chaque changement de page.
+  // behavior: 'instant' est indispensable : index.css définit
+  // `html { scroll-behavior: smooth }`, donc un window.scrollTo(0, 0) nu
+  // ferait défiler la nouvelle page depuis la position de l'ancienne — le
+  // visiteur atterrissait au milieu de la page et la regardait remonter.
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }, [pathname])
 
   if (loading) return <Loader />
