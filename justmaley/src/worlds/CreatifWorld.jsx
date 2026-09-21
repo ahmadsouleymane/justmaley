@@ -174,7 +174,7 @@ export default function CreatifWorld() {
 
       <footer className="border-t border-black/10 py-8 px-6 md:px-10">
         <div className="mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-black/50 text-xs" style={{ maxWidth: '1200px' }}>
-          <span>© {new Date().getFullYear()} Ahmad Souleymane · Justmaley</span>
+          <span>© {new Date().getFullYear()} Ahmad Souleymane · JustMaley</span>
           <span className="tracking-wide">{EMAIL}</span>
         </div>
       </footer>

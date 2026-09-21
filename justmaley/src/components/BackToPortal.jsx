@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
 import { useLocale } from '../i18n.jsx'
 
-// Petit retour vers le portail des deux mondes, présent dans chaque univers.
+// Retour vers l'accueil du studio, présent dans chaque univers archivé.
+// (/creatif et /dev ne sont plus dans le parcours commercial — voir App.jsx.)
 export default function BackToPortal() {
   const { lang } = useLocale()
-  const label = lang === 'en' ? 'Both worlds' : 'Les deux mondes'
+  const label = lang === 'en' ? 'Back home' : "Retour à l'accueil"
   return (
     <Link
       to="/"

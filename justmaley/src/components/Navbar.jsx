@@ -19,8 +19,8 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto px-6 md:px-10 flex items-center justify-between h-16" style={{ maxWidth: '1280px' }}>
-        <a href="#" className="flex items-center" aria-label="Just Maley">
-          <img src="/logo-wt.svg" alt="Just Maley" width="140" height="24" className="h-6 md:h-7 w-auto" />
+        <a href="#" className="flex items-center" aria-label="JustMaley">
+          <img src="/logo-wt.svg" alt="JustMaley" width="140" height="24" className="h-6 md:h-7 w-auto" />
         </a>
 
         <div className="flex items-center gap-5 md:gap-7">

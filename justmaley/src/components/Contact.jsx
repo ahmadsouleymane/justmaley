@@ -46,7 +46,7 @@ export default function Contact() {
         body: JSON.stringify({
           access_key: WEB3FORMS_KEY,
           subject: `Nouveau projet de ${form.name}${form.project ? ` (${form.project})` : ''}`,
-          from_name: 'Just Maley · formulaire de contact',
+          from_name: 'JustMaley · formulaire de contact',
           replyto: form.email,
           name: form.name,
           email: form.email,

@@ -2,32 +2,37 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { useLocale } from '../i18n.jsx'
+import { OFFERS, PILLARS } from '../data/offers.js'
 
-// Portail "Deux mondes" — concept yin & yang.
-// Blanc = Créatif (pureté, design, élégance). Noir = Développeur (terminal, code).
-// On survole pour agrandir un côté, on clique pour y entrer. Le nom central
-// utilise mix-blend-difference : il s'inverse tout seul selon le fond (noir sur
-// blanc, blanc sur noir), comme le point de chaque moitié du taijitu.
+// Portail JustMaley — trois piliers, une échelle.
+//
+// Avant, le portail demandait « tu es créatif ou développeur ? » : une question
+// sur moi. Maintenant il demande « où en est ton activité ? » : une question sur
+// le visiteur. Même geste, mais il vend au lieu de jouer.
+//
+// Les trois fonds ne sont pas trois couleurs, c'est un dégradé en trois crans :
+// papier clair (BRAND) → pierre (GROW) → noir (BUILD). On part de l'image, on
+// traverse la visibilité, on finit par le système. La DA du site entier découle
+// de cette échelle — les pages d'offre reprennent le fond de leur pilier
+// (voir src/data/offers.js), donc la continuité est totale du portail à la vente.
+//
+// Le nom central garde le mix-blend-difference : il s'inverse tout seul selon
+// le fond, ce qui lui permet de traverser les trois panneaux sans qu'on ait à
+// gérer trois couleurs de texte.
 
 const STR = {
   fr: {
-    hint: 'Choisis un monde',
-    crea: 'Créatif',
-    creaSub: 'Vidéo · Contenu · Design',
-    creaLine: 'Je façonne des images, des vidéos et des marques.',
-    dev: 'Développeur',
-    devSub: 'Web · Mobile · IA',
-    devLine: 'Je conçois et je livre des applications qui tournent.',
+    brand: { state: "J'existe, mais je ne ressemble à rien.", sub: 'Identité · Logo · Charte' },
+    grow: { state: 'Je ressemble à quelque chose, personne ne le voit.', sub: 'Contenu · Vidéo · Réseaux' },
+    build: { state: "On me voit, il me manque l'outil.", sub: 'Site · App · Automatisation' },
+    hint: 'Où en est ton activité ?',
     enter: 'Entrer',
   },
   en: {
-    hint: 'Choose a world',
-    crea: 'Creative',
-    creaSub: 'Video · Content · Design',
-    creaLine: 'I craft visuals, videos and brands.',
-    dev: 'Developer',
-    devSub: 'Web · Mobile · AI',
-    devLine: 'I design and ship apps that run.',
+    brand: { state: "I exist, but I don't look like anything.", sub: 'Identity · Logo · Guidelines' },
+    grow: { state: 'I look like something, nobody sees it.', sub: 'Content · Video · Social' },
+    build: { state: "People see me, I'm missing the tool.", sub: 'Site · App · Automation' },
+    hint: 'Where is your business at?',
     enter: 'Enter',
   },
 }
@@ -37,74 +42,56 @@ export default function Portal() {
   const s = STR[lang] || STR.fr
   const navigate = useNavigate()
   const rootRef = useRef(null)
-  const creaRef = useRef(null)
-  const devRef = useRef(null)
   const headRef = useRef(null)
+  const panelRefs = useRef({})
   const [hover, setHover] = useState(null)
   const [leaving, setLeaving] = useState(null)
 
   useEffect(() => {
+    const panels = PILLARS.map((p) => panelRefs.current[p]).filter(Boolean)
     const ctx = gsap.context(() => {
-      gsap.set([creaRef.current, devRef.current], { opacity: 0 })
-      gsap.set(creaRef.current, { yPercent: 6 })
-      gsap.set(devRef.current, { yPercent: 6 })
+      gsap.set(panels, { opacity: 0, yPercent: 5 })
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-      tl.to(creaRef.current, { opacity: 1, yPercent: 0, duration: 0.9 })
-        .to(devRef.current, { opacity: 1, yPercent: 0, duration: 0.9 }, '<0.12')
-        .from(headRef.current?.children || [], { opacity: 0, y: -14, duration: 0.7, stagger: 0.12 }, '-=0.5')
+      // Les trois crans apparaissent en cascade, de gauche à droite.
+      tl.to(panels, { opacity: 1, yPercent: 0, duration: 0.85, stagger: 0.1 })
+        .from(headRef.current?.children || [], { opacity: 0, y: -14, duration: 0.7, stagger: 0.12 }, '-=0.6')
     }, rootRef)
     return () => ctx.revert()
   }, [])
 
-  const enter = (world) => {
+  const enter = (slug) => {
     if (leaving) return
-    setLeaving(world)
-    const other = world === 'crea' ? devRef.current : creaRef.current
-    const chosen = world === 'crea' ? creaRef.current : devRef.current
+    setLeaving(slug)
+    const chosen = panelRefs.current[slug]
+    const others = PILLARS.filter((p) => p !== slug).map((p) => panelRefs.current[p])
     gsap
-      .timeline({ onComplete: () => navigate(world === 'crea' ? '/creatif' : '/dev') })
+      .timeline({ onComplete: () => navigate(`/${slug}`) })
       .to(headRef.current, { opacity: 0, duration: 0.3 }, 0)
-      .to(other, { opacity: 0, duration: 0.4, ease: 'power2.in' }, 0)
+      .to(others, { opacity: 0, duration: 0.4, ease: 'power2.in' }, 0)
       .to(chosen, { flexGrow: 40, duration: 0.6, ease: 'power3.inOut' }, 0)
   }
 
-  const grow = (side) => (hover === side ? 60 : hover ? 40 : 50)
+  // Au survol : le pilier visé prend 60 %, les deux autres 20 % chacun.
+  const grow = (slug) => (hover === slug ? 1.8 : hover ? 0.6 : 1)
 
   return (
     <div ref={rootRef} className="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-black-deep select-none">
-      {/* ---------- CÔTÉ CRÉATIF (blanc) ---------- */}
-      <Panel
-        panelRef={creaRef}
-        onHover={() => setHover('crea')}
-        onLeave={() => setHover(null)}
-        onClick={() => enter('crea')}
-        grow={grow('crea')}
-        active={hover === 'crea'}
-        dimmed={hover === 'dev'}
-        index="01"
-        title={s.crea}
-        sub={s.creaSub}
-        line={s.creaLine}
-        enterLabel={s.enter}
-        variant="crea"
-      />
-
-      {/* ---------- CÔTÉ DÉVELOPPEUR (noir) ---------- */}
-      <Panel
-        panelRef={devRef}
-        onHover={() => setHover('dev')}
-        onLeave={() => setHover(null)}
-        onClick={() => enter('dev')}
-        grow={grow('dev')}
-        active={hover === 'dev'}
-        dimmed={hover === 'crea'}
-        index="02"
-        title={s.dev}
-        sub={s.devSub}
-        line={s.devLine}
-        enterLabel={s.enter}
-        variant="dev"
-      />
+      {PILLARS.map((slug) => (
+        <Panel
+          key={slug}
+          panelRef={(el) => { panelRefs.current[slug] = el }}
+          offer={OFFERS[slug]}
+          copy={s[slug]}
+          lang={lang}
+          enterLabel={s.enter}
+          grow={grow(slug)}
+          active={hover === slug}
+          dimmed={hover && hover !== slug}
+          onHover={() => setHover(slug)}
+          onLeave={() => setHover(null)}
+          onClick={() => enter(slug)}
+        />
+      ))}
 
       {/* ---------- NOM (mix-blend : s'inverse selon le fond) ---------- */}
       <div
@@ -116,24 +103,43 @@ export default function Portal() {
           className="font-bold leading-none tracking-tight text-center text-white"
           style={{ fontFamily: 'var(--font-cool)', fontSize: 'clamp(1.15rem, 2.6vw, 1.9rem)' }}
         >
-          AHMAD SOULEYMANE
+          JUSTMALEY
         </div>
-        <div className="mt-2.5 inline-flex items-center gap-2 text-white/90 text-[10px] md:text-[11px] uppercase tracking-[0.28em]">
+        <div className="mt-2.5 inline-flex items-center gap-2 text-white/90 text-[10px] md:text-[11px] uppercase tracking-[0.28em] text-center">
           <span className="w-5 h-px bg-white/70" />
           {s.hint}
           <span className="w-5 h-px bg-white/70" />
         </div>
       </div>
+
+      {/* Sélecteur de langue, dans le même calque que le nom pour rester lisible. */}
+      <div className="absolute top-7 md:top-9 right-5 md:right-8 z-40" style={{ mixBlendMode: 'difference' }}>
+        <LangToggle />
+      </div>
     </div>
   )
 }
 
-function Panel({ panelRef, onHover, onLeave, onClick, grow, active, dimmed, index, title, sub, line, enterLabel, variant }) {
-  const isCrea = variant === 'crea'
-  // Couleurs inversées d'un monde à l'autre (yin & yang).
-  const fg = isCrea ? '#0A0A0A' : '#E3E7D3'
-  const muted = isCrea ? 'rgba(10,10,10,0.60)' : 'rgba(227,231,211,0.60)'
-  const hair = isCrea ? 'rgba(10,10,10,0.22)' : 'rgba(227,231,211,0.22)'
+function LangToggle() {
+  const { lang, setLang } = useLocale()
+  const other = lang === 'fr' ? 'en' : 'fr'
+  return (
+    <button
+      type="button"
+      onClick={() => setLang(other)}
+      aria-label={`Switch to ${other.toUpperCase()}`}
+      className="text-[11px] text-white/80 hover:text-white transition-colors tracking-wide"
+    >
+      <span className="font-semibold">{lang.toUpperCase()}</span>
+      <span className="text-white/40 mx-1">/</span>
+      <span>{other.toUpperCase()}</span>
+    </button>
+  )
+}
+
+function Panel({ panelRef, offer, copy, lang, enterLabel, grow, active, dimmed, onHover, onLeave, onClick }) {
+  const isDark = offer.theme === 'dark'
+  const tag = (offer[lang] || offer.fr).tag
 
   return (
     <button
@@ -142,24 +148,23 @@ function Panel({ panelRef, onHover, onLeave, onClick, grow, active, dimmed, inde
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
       onClick={onClick}
-      style={{ flexGrow: grow, flexBasis: 0, transition: 'flex-grow 0.6s cubic-bezier(0.16,1,0.3,1)' }}
+      style={{
+        flexGrow: grow,
+        flexBasis: 0,
+        background: offer.bg,
+        transition: 'flex-grow 0.6s cubic-bezier(0.16,1,0.3,1)',
+      }}
       className="group relative min-h-0 basis-0 overflow-hidden text-left"
-      aria-label={title}
+      aria-label={offer.name}
     >
-      {/* fond */}
-      <div
-        className="absolute inset-0"
-        style={{ background: isCrea ? 'linear-gradient(150deg, #ffffff 0%, #efeee8 100%)' : 'linear-gradient(150deg, #0d0d0d 0%, #060606 100%)' }}
-      />
-      {/* texture propre à chaque monde */}
-      {isCrea ? (
-        // grain fin, très léger — pureté, papier
+      {/* Texture propre à chaque cran : papier → pierre → plan technique. */}
+      {offer.theme === 'light' && (
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.04]"
           style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27120%27 height=%27120%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.8%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E")' }}
         />
-      ) : (
-        // grille blueprint blanche
+      )}
+      {isDark && (
         <div
           className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${active ? 'opacity-100' : 'opacity-60'}`}
           style={{
@@ -170,40 +175,41 @@ function Panel({ panelRef, onHover, onLeave, onClick, grow, active, dimmed, inde
         />
       )}
 
-      {/* "œil" du taijitu : un cercle de la couleur opposée, qui flotte */}
+      {/* Le point : motif hérité du taijitu, dans la couleur opposée au fond.
+          Masqué sur mobile : les panneaux n'y font qu'un tiers d'écran, donc il
+          retomberait sur le titre fixe en haut de page. */}
       <span
-        className="absolute rounded-full float-y"
+        className="hidden md:block absolute rounded-full float-y"
         style={{
-          width: '14px', height: '14px',
-          top: '22%', [isCrea ? 'right' : 'left']: '16%',
-          background: isCrea ? '#0A0A0A' : '#E3E7D3',
-          opacity: active ? 0.9 : 0.55,
+          width: '12px',
+          height: '12px',
+          top: '22%',
+          left: '16%',
+          background: isDark ? '#E3E7D3' : '#0A0A0A',
+          opacity: active ? 0.85 : 0.45,
           transition: 'opacity 0.4s',
         }}
         aria-hidden="true"
       />
 
-      {/* curseur code, côté dev */}
-      {!isCrea && (
-        <div className="absolute top-1/3 right-6 md:right-10 hidden lg:block pointer-events-none font-mono text-[11px] text-offwhite/25 leading-relaxed text-right">
-          <div>const maley = () =&gt; {'{'}</div>
-          <div>&nbsp;&nbsp;ship(idea)<span className="blink">_</span></div>
-          <div>{'}'}</div>
+      {/* Contenu ancré en bas. */}
+      <div
+        className="relative z-10 h-full w-full flex flex-col justify-end p-7 md:p-10"
+        style={{ opacity: dimmed ? 0.45 : 1, transition: 'opacity 0.5s' }}
+      >
+        <div className="flex items-center gap-2.5 text-sm mb-3" style={{ color: offer.fg }}>
+          <span className="font-mono opacity-55">{offer.n}</span>
+          <span className="w-8 h-px" style={{ background: offer.hair }} />
+          <span className="lowercase tracking-wide" style={{ color: offer.muted }}>
+            {tag}
+          </span>
         </div>
-      )}
 
-      {/* contenu ancré en bas */}
-      <div className="relative z-10 h-full w-full flex flex-col justify-end p-8 md:p-12" style={{ opacity: dimmed ? 0.5 : 1, transition: 'opacity 0.5s' }}>
-        <div className="flex items-center gap-2.5 text-sm mb-4" style={{ color: fg }}>
-          <span className="font-mono opacity-60">{index}</span>
-          <span className="w-8 h-px" style={{ background: hair }} />
-          <span className="lowercase tracking-wide" style={{ color: muted }}>{sub}</span>
-        </div>
         <h2
           style={{
-            color: fg,
+            color: offer.fg,
             fontFamily: 'var(--font-cool)',
-            fontSize: 'clamp(2.4rem, 6vw, 5.5rem)',
+            fontSize: 'clamp(2rem, 4.6vw, 4.6rem)',
             lineHeight: 0.95,
             fontWeight: 800,
             letterSpacing: '-0.02em',
@@ -211,12 +217,28 @@ function Panel({ panelRef, onHover, onLeave, onClick, grow, active, dimmed, inde
             transition: 'transform 0.4s',
           }}
         >
-          {title}
+          {offer.name}
         </h2>
-        <p className="mt-4 text-sm md:text-base max-w-sm leading-relaxed" style={{ color: muted }}>{line}</p>
+
+        <p
+          className="mt-3.5 hidden sm:block text-sm md:text-[15px] max-w-[22rem] leading-snug"
+          style={{ color: offer.muted }}
+        >
+          {copy?.state}
+        </p>
+
+        <p className="mt-2 text-[11px] md:text-xs tracking-wide" style={{ color: offer.muted }}>
+          {copy?.sub}
+        </p>
+
         <div
-          className="mt-7 inline-flex items-center gap-2 text-sm font-semibold"
-          style={{ color: fg, transform: active ? 'translateX(6px)' : 'none', opacity: active ? 1 : 0.8, transition: 'all 0.3s' }}
+          className="mt-5 inline-flex items-center gap-2 text-sm font-semibold"
+          style={{
+            color: offer.fg,
+            transform: active ? 'translateX(6px)' : 'none',
+            opacity: active ? 1 : 0.75,
+            transition: 'all 0.3s',
+          }}
         >
           {enterLabel}
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
