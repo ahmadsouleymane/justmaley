@@ -1,0 +1,12 @@
+# Fichiers système macOS
+.DS_Store
+
+# Dépendances
+node_modules/
+
+# Variables d'environnement
+.env
+.env.local
+
+# Journaux
+*.log
