@@ -48,6 +48,8 @@
     { "source": "/creatif", "destination": "/brand", "permanent": true }
   ],
   "rewrites": [
+    { "source": "/demos/librairie-kim", "destination": "/demos/librairie-kim/index.html" },
+    { "source": "/demos/librairie-kim/", "destination": "/demos/librairie-kim/index.html" },
     { "source": "/brand", "destination": "/brand/index.html" },
     { "source": "/grow", "destination": "/grow/index.html" },
     { "source": "/build", "destination": "/build/index.html" },
