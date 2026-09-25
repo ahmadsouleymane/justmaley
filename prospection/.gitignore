@@ -1,6 +1,0 @@
-node_modules/
-.env
-data/output/
-data/checkpoints/
-*.log
-.DS_Store
